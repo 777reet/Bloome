@@ -4,74 +4,372 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Contact | Bloome</title>
-  <link rel="stylesheet" href="styles/base.css">
-  <link rel="stylesheet" href="styles/layout.css">
-  <link rel="stylesheet" href="styles/components.css">
-  <link rel="stylesheet" href="styles/themes.css">
-  <link rel="stylesheet" href="styles/bloome.css">
+  <title>Contact | BLOOMÉ - Let's Connect & Grow Together</title>
+  <meta name="description" content="Get in touch with BLOOMÉ! Send us a message, find our location, or join our wellness community. We're here to support your journey.">
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Dancing+Script:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="../Css/Contact.css">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
 </head>
 
 <body>
+  <!-- Loading Screen -->
+  <div class="loading" id="loading">
+    <div class="loading-flower">🌸</div>
+    <p>Preparing our garden for you...</p>
+  </div>
+
+  <!-- Floating Background Elements -->
+  <div class="floating-elements">
+    <div class="floating-shape shape-1">🌺</div>
+    <div class="floating-shape shape-2">🦋</div>
+    <div class="floating-shape shape-3">✨</div>
+    <div class="floating-shape shape-4">🌿</div>
+    <div class="floating-shape shape-5">💫</div>
+  </div>
+
+  <!-- Header -->
   <header class="site-header">
     <div class="container nav-wrapper">
       <h1 class="logo">BLOOMÉ</h1>
-      <nav class="main-nav">
+      <button class="mobile-menu-toggle" id="mobile-menu-toggle" aria-label="Toggle Menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <nav class="main-nav" id="main-nav">
         <a href="index.html">Home</a>
         <a href="about.html">About</a>
         <a href="products.html">Products</a>
         <a href="yoga.html">Workouts</a>
         <a href="contact.html" class="active">Contact</a>
+        <a href="#newsletter" class="nav-cta">Join Community</a>
       </nav>
+      <button class="theme-toggle" id="theme-toggle" aria-label="Toggle Theme">🌙</button>
     </div>
   </header>
 
+  <!-- Hero Section -->
   <section class="contact-hero fade-slide">
-    <h2>Reach Out to Us</h2>
-    <p>Your journey to wellness starts with a conversation ✨</p>
+    <div class="hero-content">
+      <h2 class="animate-text">Let's Bloom Together</h2>
+      <p class="hero-subtitle">Your journey to wellness starts with a heartfelt conversation <span class="sparkle">✨</span></p>
+      <div class="hero-flowers">
+        <span class="flower flower-1">🌸</span>
+        <span class="flower flower-2">🌺</span>
+        <span class="flower flower-3">🌼</span>
+      </div>
+    </div>
+    <div class="scroll-indicator" id="scroll-indicator">
+      <span>Scroll to connect</span>
+      <div class="scroll-arrow">↓</div>
+    </div>
   </section>
 
+  <!-- Contact Methods Section -->
+  <section class="contact-methods">
+    <div class="container">
+      <h3 class="section-title">Choose Your Way to Connect</h3>
+      <div class="methods-grid">
+        <div class="method-card" data-method="form">
+          <div class="method-icon">📝</div>
+          <h4>Send Message</h4>
+          <p>Share your thoughts with us</p>
+        </div>
+        <div class="method-card" data-method="chat">
+          <div class="method-icon">💬</div>
+          <h4>Live Chat</h4>
+          <p>Chat with our wellness team</p>
+        </div>
+        <div class="method-card" data-method="callback">
+          <div class="method-icon">📞</div>
+          <h4>Request Callback</h4>
+          <p>We'll call you back</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Contact Section -->
   <section class="contact-wrapper">
-    <div class="contact-form">
-      <h3>Send Us a Message</h3>
-      <form id="contactForm">
-        <label for="name">Name</label>
-        <input type="text" id="name" name="name" required placeholder="Enter your name">
+    <div class="container">
+      <div class="contact-grid">
+        
+        <!-- Contact Form -->
+        <div class="contact-form-container" id="form-container">
+          <div class="form-header">
+            <h3>Send Us a Message 💌</h3>
+            <p>We'd love to hear from you! Share your wellness journey with us.</p>
+          </div>
+          
+          <form id="contactForm" class="contact-form">
+            <div class="form-group">
+              <label for="name">Your Beautiful Name</label>
+              <input type="text" id="name" name="name" required placeholder="What should we call you?">
+              <span class="input-focus-border"></span>
+            </div>
 
-        <label for="email">Email</label>
-        <input type="email" id="email" name="email" required placeholder="Enter your email">
+            <div class="form-group">
+              <label for="email">Email Address</label>
+              <input type="email" id="email" name="email" required placeholder="your@email.com">
+              <span class="input-focus-border"></span>
+            </div>
 
-        <label for="message">Message</label>
-        <textarea id="message" name="message" required placeholder="Write your message here..."></textarea>
+            <div class="form-group">
+              <label for="phone">Phone Number (Optional)</label>
+              <input type="tel" id="phone" name="phone" placeholder="+1 (555) 123-4567">
+              <span class="input-focus-border"></span>
+            </div>
 
-        <button type="submit" class="btn">Send</button>
-      </form>
-    </div>
+            <div class="form-group">
+              <label for="interest">What interests you most?</label>
+              <select id="interest" name="interest" required>
+                <option value="">Choose your wellness path...</option>
+                <option value="yoga">🧘‍♀️ Yoga & Mindfulness</option>
+                <option value="nutrition">🥗 Nutrition Guidance</option>
+                <option value="fitness">💪 Fitness Programs</option>
+                <option value="mental-health">🌈 Mental Wellness</option>
+                <option value="community">👥 Community Events</option>
+                <option value="other">🌟 Something Else</option>
+              </select>
+              <span class="input-focus-border"></span>
+            </div>
 
-    <div class="contact-map">
-      <iframe
-        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d241317.11609813768!2d72.74109994811936!3d19.082197839270554"
-        allowfullscreen="" loading="lazy"></iframe>
+            <div class="form-group">
+              <label for="message">Your Message</label>
+              <textarea id="message" name="message" required placeholder="Share your thoughts, questions, or wellness goals with us..."></textarea>
+              <span class="input-focus-border"></span>
+            </div>
+
+            <button type="submit" class="btn-submit" id="submit-btn">
+              <span class="btn-text">Send Message</span>
+              <span class="btn-icon">🚀</span>
+              <div class="btn-ripple"></div>
+            </button>
+            
+            <div class="form-footer">
+              <p>✨ We typically respond within 24 hours</p>
+            </div>
+          </form>
+          
+          <!-- Success Message -->
+          <div class="success-message" id="success-message">
+            <div class="success-content">
+              <div class="success-animation">
+                <div class="checkmark">✓</div>
+                <div class="celebration">🎉</div>
+              </div>
+              <h4>Message Sent Successfully!</h4>
+              <p>Thank you for reaching out. We'll get back to you soon with lots of love and wellness vibes!</p>
+              <button class="btn-secondary" id="send-another">Send Another Message</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Interactive Contact Info -->
+        <div class="contact-info">
+          <div class="info-card">
+            <h4>🌸 Visit Our Wellness Garden</h4>
+            <div class="address-info">
+              <p>123 Serenity Lane<br>
+              Wellness District<br>
+              Mindful City, MC 12345</p>
+              <button class="btn-directions" id="get-directions">
+                <span>🗺️ Get Directions</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="info-card">
+            <h4>🕐 Garden Hours</h4>
+            <div class="hours-info">
+              <div class="hours-item">
+                <span class="day">Monday - Friday</span>
+                <span class="time">8:00 AM - 8:00 PM</span>
+              </div>
+              <div class="hours-item">
+                <span class="day">Saturday</span>
+                <span class="time">9:00 AM - 6:00 PM</span>
+              </div>
+              <div class="hours-item">
+                <span class="day">Sunday</span>
+                <span class="time">10:00 AM - 4:00 PM</span>
+              </div>
+              <div class="current-status" id="current-status">
+                <span class="status-dot"></span>
+                <span class="status-text">We're currently open!</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="info-card">
+            <h4>💌 Quick Connect</h4>
+            <div class="quick-contact">
+              <a href="mailto:hello@bloome.com" class="contact-link">
+                <span class="icon">📧</span>
+                <span>hello@bloome.com</span>
+              </a>
+              <a href="tel:+1555123456" class="contact-link">
+                <span class="icon">📱</span>
+                <span>+1 (555) 123-LOVE</span>
+              </a>
+              <div class="social-connect">
+                <h5>Follow Our Journey</h5>
+                <div class="social-links">
+                  <a href="#" class="social-link instagram" title="Instagram">📷</a>
+                  <a href="#" class="social-link facebook" title="Facebook">📘</a>
+                  <a href="#" class="social-link twitter" title="Twitter">🐦</a>
+                  <a href="#" class="social-link youtube" title="YouTube">📺</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
+  <!-- Interactive Map Section -->
+  <section class="map-section">
+    <div class="container">
+      <h3 class="section-title">Find Our Wellness Oasis</h3>
+      <div class="map-container" id="map-container">
+        <div class="map-wrapper">
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d241317.11609813768!2d72.74109994811936!3d19.082197839270554"
+            allowfullscreen="" 
+            loading="lazy"
+            title="BLOOMÉ Wellness Center Location">
+          </iframe>
+          <div class="map-overlay" id="map-overlay">
+            <div class="overlay-content">
+              <h4>🌸 Click to Explore</h4>
+              <p>Discover our beautiful wellness center</p>
+              <button class="btn-explore">Explore Location</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Fun Interactive Section -->
+  <section class="wellness-game">
+    <div class="container">
+      <h3 class="section-title">While You're Here... 🎮</h3>
+      <p class="section-subtitle">Take a moment to play our Mindfulness Memory Game!</p>
+      
+      <div class="memory-game" id="memory-game">
+        <div class="game-board" id="game-board">
+          <!-- Cards will be generated by JavaScript -->
+        </div>
+        <div class="game-stats">
+          <div class="stat">
+            <span class="stat-label">Moves</span>
+            <span class="stat-value" id="moves">0</span>
+          </div>
+          <div class="stat">
+            <span class="stat-label">Time</span>
+            <span class="stat-value" id="timer">00:00</span>
+          </div>
+          <div class="stat">
+            <span class="stat-label">Matches</span>
+            <span class="stat-value" id="matches">0/8</span>
+          </div>
+        </div>
+        <button class="btn-game-reset" id="reset-game">🔄 New Game</button>
+      </div>
+
+      <div class="game-completion" id="game-completion">
+        <div class="completion-content">
+          <div class="completion-animation">🎉</div>
+          <h4>Mindfulness Achieved! 🧘‍♀️</h4>
+          <p>You completed the game in <span id="final-time">0</span> seconds with <span id="final-moves">0</span> moves!</p>
+          <div class="wellness-tip" id="wellness-tip">
+            <!-- Random wellness tip will appear here -->
+          </div>
+          <button class="btn-play-again" id="play-again">Play Again</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Fun Surprise Section -->
   <section class="fun-surprise">
-    <p class="sparkle-message">You found our heart — let's connect ❤️</p>
-    <div class="sparkle-fade"></div>
+    <div class="container">
+      <div class="surprise-content">
+        <p class="sparkle-message">You found our heart — let's connect! ❤️</p>
+        <div class="interactive-hearts" id="interactive-hearts">
+          <div class="heart-button" data-message="Gratitude">💖</div>
+          <div class="heart-button" data-message="Love">💝</div>
+          <div class="heart-button" data-message="Peace">💕</div>
+          <div class="heart-button" data-message="Joy">💗</div>
+          <div class="heart-button" data-message="Hope">💓</div>
+        </div>
+        <div class="message-display" id="message-display">
+          Click a heart to spread some love! ✨
+        </div>
+        <div class="love-counter">
+          <span>Love sent today: </span>
+          <span id="love-counter">247</span> 💕
+        </div>
+      </div>
+    </div>
   </section>
 
+  <!-- Newsletter Section -->
+  <section class="newsletter-section" id="newsletter">
+    <div class="container">
+      <div class="newsletter-content">
+        <h3>Join Our Blooming Community 🌸</h3>
+        <p>Get weekly wellness tips, exclusive content, and first access to new programs!</p>
+        <form class="newsletter-form" id="newsletter-form">
+          <div class="newsletter-input-group">
+            <input type="email" placeholder="Your email address..." id="newsletter-email" required>
+            <button type="submit" class="btn-newsletter">
+              <span>Bloom with Us</span>
+              <span class="btn-sparkle">✨</span>
+            </button>
+          </div>
+        </form>
+        <p class="newsletter-privacy">We respect your privacy. Unsubscribe anytime. 🌿</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
   <footer class="site-footer">
-    <p>&copy; 2025 BLOOMÉ. You're always welcome here.</p>
-    <div class="social-links">
-      <a href="#">Instagram</a>
-      <a href="#">Facebook</a>
-      <a href="#">X</a>
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-main">
+          <h3>BLOOMÉ</h3>
+          <p>&copy; 2025 BLOOMÉ. You're always welcome here. 🌸</p>
+        </div>
+        <div class="footer-social">
+          <div class="social-links">
+            <a href="#" aria-label="Instagram">📷 Instagram</a>
+            <a href="#" aria-label="Facebook">📘 Facebook</a>
+            <a href="#" aria-label="Twitter">🐦 Twitter</a>
+            <a href="#" aria-label="YouTube">📺 YouTube</a>
+          </div>
+        </div>
+      </div>
     </div>
   </footer>
 
-  <script src="scripts/animations.js"></script>
-  <script src="scripts/ui.js"></script>
-  <script src="scripts/main.js"></script>
+  <!-- Notification Toast -->
+  <div class="toast-notification" id="toast-notification">
+    <div class="toast-content">
+      <span class="toast-icon">✨</span>
+      <span class="toast-message">Welcome to BLOOMÉ!</span>
+    </div>
+  </div>
+
+  <script src="../Js/Contact.js"></script>
 </body>
 
 </html>
