@@ -1,21 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Yoga | Bloome</title>
-
-
-   <!-- Fonts -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yoga & Movement | BLOOMÉ - Find Your Flow</title>
+    <meta name="description" content="Discover your yoga journey with BLOOMÉ. From beginner flows to advanced practices, breathing exercises, and mindful movement.">
+    <meta name="keywords" content="yoga, meditation, breathing exercises, mindfulness, movement therapy, wellness">
+    
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Dancing+Script:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
     
     <!-- Styles -->
-    <link rel="stylesheet" href="../Css/Gym.css">
+    <link rel="stylesheet" href="../css/Gym.css">
     
     <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="icon" type="image/x-icon" href="../favicon.ico">
 </head>
 <body>
     <!-- Loading Screen -->
@@ -40,147 +41,262 @@
                 <span></span>
             </button>
             <nav class="main-nav" id="main-nav">
-                <a href="#home">Home</a>
+                <a href="../index.html">Home</a>
                 <a href="about.html">About</a>
-                <a href="#services">Services</a>
-                <a href="#testimonials">Stories</a>
+                <a href="../index.html#services">Services</a>
+                <a href="../index.html#testimonials">Stories</a>
                 <a href="contact.html">Contact</a>
-                <a href="#newsletter" class="nav-cta">Join Community</a>
+                <a href="../index.html#newsletter" class="nav-cta">Join Community</a>
             </nav>
+            <button class="theme-toggle" id="theme-toggle" aria-label="Toggle Theme">🌙</button>
         </div>
     </header>
-   
-</head>
 
-<body>
-  <header class="site-header">
-    <div class="container nav-wrapper">
-      <div class="theme-toggle">🌙</div>
-    </div>
-  </header>
-
-  <section class="page-hero fade-slide">
-    <div class="hero-content">
-      <h2 class="animate-text-split">Find Your Flow</h2>
-      <p class="animate-text-fade">Move with purpose. Breathe with love. <span class="sparkle-emoji">✨</span></p>
-    </div>
-    <div class="floating-elements-container">
-      </div>
-  </section>
-
-  <section class="yoga-section">
-    <h2>Our Curated Workouts</h2>
-    <div class="yoga-categories-grid">
-      <div class="yoga-category reveal-on-scroll" style="transition-delay: 0s;">
-        <h3>Beginner Flow</h3>
-        <div class="difficulty-indicator beginner">Easy</div>
-        <div class="yoga-card">
-          <div class="video-thumbnail" data-video-id="VIDEO_ID_1">
-            <img src="https://images.unsplash.com/photo-1545389336-cf090694ff20?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w1MDcxMzJ8MHwxfHNlYXJjaHw0fHx5b2dhJTIwYmVnaW5uZXJ8ZW5mDB8fHx8MTcwMTk1NzU5M3ww&ixlib=rb-4.0.3&q=80&w=1080" alt="Beginner Yoga">
-            <span class="play-button">▶️</span>
-          </div>
-          <p>Start your journey with slow, mindful movement. Perfect for building a strong foundation.</p>
+    <!-- Hero Section -->
+    <section class="page-hero" id="home">
+        <div class="hero-content">
+            <h2 class="animate-text-split">Find Your Flow</h2>
+            <p class="animate-text-fade">Move with purpose. Breathe with love. <span class="sparkle-emoji">✨</span></p>
         </div>
-      </div>
+        <div class="floating-elements-container"></div>
+    </section>
 
-      <div class="yoga-category reveal-on-scroll" style="transition-delay: 0.1s;">
-        <h3>Intermediate Glow</h3>
-        <div class="difficulty-indicator intermediate">Moderate</div>
-        <div class="yoga-card">
-          <div class="video-thumbnail" data-video-id="VIDEO_ID_2">
-            <img src="https://images.unsplash.com/photo-1571439223396-e260848ce1ce?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w1MDcxMzJ8MHwxfHNlYXJjaHw0fHx5b2dhJTIwaW50ZXJtZWRpYXRlfGVufDB8fHx8MTcwMjEzOTE2N3ww&ixlib=rb-4.0.3&q=80&w=1080" alt="Intermediate Yoga">
-            <span class="play-button">▶️</span>
-          </div>
-          <p>Strengthen your flow and center your breath with engaging sequences.</p>
+    <!-- Yoga Programs Section -->
+    <section class="yoga-section">
+        <div class="container">
+            <h2 class="section-title">Our Curated Programs</h2>
+            <div class="yoga-categories-grid">
+                <div class="yoga-category reveal-on-scroll" data-delay="0">
+                    <h3>Beginner Flow</h3>
+                    <div class="difficulty-indicator beginner">Easy</div>
+                    <div class="yoga-card">
+                        <div class="video-thumbnail" data-video-type="beginner">
+                            <img src="https://images.unsplash.com/photo-1545389336-cf090694ff20?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w1MDcxMzJ8MHwxfHNlYXJjaHw0fHx5b2dhJTIwYmVnaW5uZXJ8ZW5mDB8fHx8MTcwMTk1NzU5M3ww&ixlib=rb-4.0.3&q=80&w=1080" alt="Beginner Yoga Flow" loading="lazy">
+                            <div class="play-button">
+                                <span>▶️</span>
+                            </div>
+                            <div class="duration-badge">15 min</div>
+                        </div>
+                        <p>Start your journey with slow, mindful movement. Perfect for building a strong foundation and developing body awareness.</p>
+                        <div class="yoga-benefits">
+                            <span class="benefit-tag">🧘‍♀️ Mindfulness</span>
+                            <span class="benefit-tag">💪 Flexibility</span>
+                            <span class="benefit-tag">🌱 Balance</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="yoga-category reveal-on-scroll" data-delay="0.1">
+                    <h3>Intermediate Glow</h3>
+                    <div class="difficulty-indicator intermediate">Moderate</div>
+                    <div class="yoga-card">
+                        <div class="video-thumbnail" data-video-type="intermediate">
+                            <img src="https://images.unsplash.com/photo-1571439223396-e260848ce1ce?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w1MDcxMzJ8MHwxfHNlYXJjaHw0fHx5b2dhJTIwaW50ZXJtZWRpYXRlfGVufDB8fHx8MTcwMjEzOTE2N3ww&ixlib=rb-4.0.3&q=80&w=1080" alt="Intermediate Yoga Flow" loading="lazy">
+                            <div class="play-button">
+                                <span>▶️</span>
+                            </div>
+                            <div class="duration-badge">25 min</div>
+                        </div>
+                        <p>Strengthen your flow and center your breath with engaging sequences that challenge your stability and endurance.</p>
+                        <div class="yoga-benefits">
+                            <span class="benefit-tag">💪 Strength</span>
+                            <span class="benefit-tag">🌊 Flow</span>
+                            <span class="benefit-tag">❤️ Cardio</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="yoga-category reveal-on-scroll" data-delay="0.2">
+                    <h3>Advanced Radiance</h3>
+                    <div class="difficulty-indicator advanced">Challenging</div>
+                    <div class="yoga-card">
+                        <div class="video-thumbnail" data-video-type="advanced">
+                            <img src="https://images.unsplash.com/photo-1549429413-5a049f57f59d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w1MDcxMzJ8MHwxfHNlYXJjaHwzMHx8eW9nYSUyMGFkdmFuY2VkfGVufDB8fHx8MTcwMjEzOTE3M3ww&ixlib=rb-4.0.3&q=80&w=1080" alt="Advanced Yoga Flow" loading="lazy">
+                            <div class="play-button">
+                                <span>▶️</span>
+                            </div>
+                            <div class="duration-badge">40 min</div>
+                        </div>
+                        <p>Empower your body and expand your consciousness with complex poses, inversions, and longer holds.</p>
+                        <div class="yoga-benefits">
+                            <span class="benefit-tag">🔥 Power</span>
+                            <span class="benefit-tag">🤸‍♀️ Advanced</span>
+                            <span class="benefit-tag">🧠 Focus</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
+    </section>
 
-      <div class="yoga-category reveal-on-scroll" style="transition-delay: 0.2s;">
-        <h3>Advanced Radiance</h3>
-        <div class="difficulty-indicator advanced">Challenging</div>
-        <div class="yoga-card">
-          <div class="video-thumbnail" data-video-id="VIDEO_ID_3">
-            <img src="https://images.unsplash.com/photo-1549429413-5a049f57f59d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w1MDcxMzJ8MHwxfHNlYXJjaHwzMHx8eW9nYSUyMGFkdmFuY2VkfGVufDB8fHx8MTcwMjEzOTE3M3ww&ixlib=rb-4.0.3&q=80&w=1080" alt="Advanced Yoga">
-            <span class="play-button">▶️</span>
-          </div>
-          <p>Empower your body and stretch your stillness with complex poses and longer holds.</p>
+    <!-- Breathing Exercise Section -->
+    <section class="breathing-guide">
+        <div class="container">
+            <h3>3-Minute Breathing Reset</h3>
+            <p>Follow the expanding and contracting circle to find your inner calm and center your mind.</p>
+            <div class="breath-circle-container reveal-on-scroll">
+                <div class="breath-circle"></div>
+                <div class="breath-instructions">
+                    <span class="breath-phase" id="breath-phase">Press Start</span>
+                    <span class="breath-count" id="breath-count"></span>
+                </div>
+            </div>
+            <button class="start-breathing-button" id="start-breathing">
+                <span class="btn-text">Start Breathing Exercise</span>
+                <span class="btn-icon">🧘‍♀️</span>
+            </button>
+            <div class="breathing-benefits">
+                <div class="benefit-item">
+                    <span class="benefit-icon">🧠</span>
+                    <span class="benefit-text">Reduces Stress</span>
+                </div>
+                <div class="benefit-item">
+                    <span class="benefit-icon">❤️</span>
+                    <span class="benefit-text">Calms Heart Rate</span>
+                </div>
+                <div class="benefit-item">
+                    <span class="benefit-icon">😌</span>
+                    <span class="benefit-text">Improves Focus</span>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
-  </section>
+    </section>
 
-  <section class="breathing-guide">
-    <h3>3-Minute Breathing Reset</h3>
-    <p>Follow the expanding and contracting circle to find your inner calm.</p>
-    <div class="breath-circle-container reveal-on-scroll">
-      <div class="breath-circle"></div>
-    </div>
-    <p class="inhale-exhale">Press Start</p>
-    <button class="start-breathing-button">Start Breathing Exercise</button>
-    <audio id="breathing-audio" src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3" preload="auto"></audio>
-  </section>
-
-  <section class="workout-progress-section">
-    <h2>Your BLOOMÉ Progress</h2>
-    <p>Celebrate your consistency! Here's a glimpse of popular workout engagement.</p>
-    <div class="chart-wrapper reveal-on-scroll">
-      <h3>Weekly Workout Streak</h3>
-      <div class="bar-chart">
-        <div class="chart-bar" data-value="75" style="background-color: var(--primary-color);">
-          <span class="chart-bar-value"></span>
-          <span class="chart-bar-label">Vinyasa</span>
+    <!-- Progress Section -->
+    <section class="workout-progress-section">
+        <div class="container">
+            <h2>Your BLOOMÉ Progress</h2>
+            <p>Celebrate your consistency! Here's your weekly yoga engagement overview.</p>
+            <div class="chart-wrapper reveal-on-scroll">
+                <h3>Weekly Practice Streak</h3>
+                <div class="bar-chart" id="progress-chart">
+                    <div class="chart-bar" data-value="75" data-label="Vinyasa">
+                        <span class="chart-bar-value">0%</span>
+                        <span class="chart-bar-label">Vinyasa</span>
+                        <div class="chart-bar-fill"></div>
+                    </div>
+                    <div class="chart-bar" data-value="90" data-label="Restorative">
+                        <span class="chart-bar-value">0%</span>
+                        <span class="chart-bar-label">Restorative</span>
+                        <div class="chart-bar-fill"></div>
+                    </div>
+                    <div class="chart-bar" data-value="60" data-label="Power">
+                        <span class="chart-bar-value">0%</span>
+                        <span class="chart-bar-label">Power</span>
+                        <div class="chart-bar-fill"></div>
+                    </div>
+                    <div class="chart-bar" data-value="80" data-label="Meditation">
+                        <span class="chart-bar-value">0%</span>
+                        <span class="chart-bar-label">Meditation</span>
+                        <div class="chart-bar-fill"></div>
+                    </div>
+                </div>
+                <div class="chart-legend">
+                    <div class="chart-legend-item">
+                        <span class="legend-color vinyasa"></span>
+                        <span class="legend-text">Vinyasa Flow</span>
+                    </div>
+                    <div class="chart-legend-item">
+                        <span class="legend-color restorative"></span>
+                        <span class="legend-text">Restorative</span>
+                    </div>
+                    <div class="chart-legend-item">
+                        <span class="legend-color power"></span>
+                        <span class="legend-text">Power Yoga</span>
+                    </div>
+                    <div class="chart-legend-item">
+                        <span class="legend-color meditation"></span>
+                        <span class="legend-text">Meditation</span>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="chart-bar" data-value="90" style="background-color: var(--secondary-color);">
-          <span class="chart-bar-value"></span>
-          <span class="chart-bar-label">Restorative</span>
+    </section>
+
+    <!-- Pose of the Day Section -->
+    <section class="pose-of-the-day">
+        <div class="container">
+            <h2>Pose of the Day</h2>
+            <p>Discover a new pose to deepen your practice and expand your yoga journey.</p>
+            <div class="pose-card reveal-on-scroll" id="pose-card">
+                <div class="pose-image-container">
+                    <img id="pose-image" src="https://images.unsplash.com/photo-1573030472493-272ce12d8a1c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w1MDcxMzJ8MHwxfHNlYXJjaHw3fHx5b2dhJTIwcG9zZXxlbnwwfHx8fDE3MDIxMzkxNzd8MA&ixlib=rb-4.0.3&q=80&w=1080" alt="Yoga Pose" loading="lazy">
+                    <div class="pose-difficulty" id="pose-difficulty">Beginner</div>
+                </div>
+                <div class="pose-info">
+                    <h3 id="pose-name">Mountain Pose (Tadasana)</h3>
+                    <div class="pose-benefits" id="pose-benefits">
+                        <span class="benefit-tag">🏔️ Grounding</span>
+                        <span class="benefit-tag">💪 Posture</span>
+                        <span class="benefit-tag">🧘‍♀️ Focus</span>
+                    </div>
+                    <p id="pose-description">
+                        This foundational pose improves posture, strengthens thighs, knees, and ankles, and firms the abdomen and buttocks. It also helps to alleviate sciatica and increase body awareness.
+                    </p>
+                    <div class="pose-instructions" id="pose-instructions">
+                        <h4>How to Practice:</h4>
+                        <ol>
+                            <li>Stand with feet hip-width apart</li>
+                            <li>Ground through all four corners of your feet</li>
+                            <li>Engage your leg muscles and lift your kneecaps</li>
+                            <li>Lengthen your spine and relax your shoulders</li>
+                        </ol>
+                    </div>
+                    <button class="generate-pose-button" id="generate-pose">
+                        <span class="btn-text">Discover Another Pose</span>
+                        <span class="btn-icon">🔄</span>
+                    </button>
+                </div>
+            </div>
         </div>
-        <div class="chart-bar" data-value="60" style="background-color: var(--accent-color);">
-          <span class="chart-bar-value"></span>
-          <span class="chart-bar-label">Power</span>
+    </section>
+
+    <!-- Inspirational Section -->
+    <section class="fun-surprise">
+        <div class="container">
+            <div class="lotus-rise"></div>
+            <p class="serenity-text">You are rooted. You are radiant. <span class="flower-emoji">🌸</span></p>
+            <div class="inspirational-quotes" id="inspirational-quotes">
+                <div class="quote-card active">
+                    <p>"Yoga is not about touching your toes. It is about what you learn on the way down."</p>
+                    <span class="quote-author">- Judith Hanson Lasater</span>
+                </div>
+            </div>
         </div>
-        <div class="chart-bar" data-value="80" style="background-color: #8bc34a;">
-          <span class="chart-bar-value"></span>
-          <span class="chart-bar-label">Meditation</span>
+    </section>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>BLOOMÉ Yoga</h3>
+                    <p>Flow into your light and discover the transformative power of mindful movement.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <a href="../index.html">Home</a>
+                    <a href="about.html">About</a>
+                    <a href="../index.html#services">Services</a>
+                    <a href="contact.html">Contact</a>
+                </div>
+                <div class="footer-section">
+                    <h3>Connect</h3>
+                    <div class="social-links">
+                        <a href="#" aria-label="Instagram">📷</a>
+                        <a href="#" aria-label="Facebook">📘</a>
+                        <a href="#" aria-label="Twitter">🐦</a>
+                        <a href="#" aria-label="YouTube">📺</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 BLOOMÉ. Flow into your light ✨</p>
+            </div>
         </div>
-      </div>
-      <div class="chart-legend">
-        <div class="chart-legend-item"><span style="background-color: var(--primary-color);"></span> Vinyasa</div>
-        <div class="chart-legend-item"><span style="background-color: var(--secondary-color);"></span> Restorative</div>
-        <div class="chart-legend-item"><span style="background-color: var(--accent-color);"></span> Power</div>
-        <div class="chart-legend-item"><span style="background-color: #8bc34a;"></span> Meditation</div>
-      </div>
-    </div>
-  </section>
+    </footer>
 
-  <section class="pose-of-the-day">
-    <h2>Pose of the Day!</h2>
-    <p>Discover a new pose to deepen your practice.</p>
-    <div class="pose-card reveal-on-scroll">
-      <img id="pose-image" src="https://images.unsplash.com/photo-1573030472493-272ce12d8a1c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w1MDcxMzJ8MHwxfHNlYXJjaHw3fHx5b2dhJTIwcG9zZXxlbnwwfHx8fDE3MDIxMzkxNzd8MA&ixlib=rb-4.0.3&q=80&w=1080" alt="Yoga Pose">
-      <h3 id="pose-name">Mountain Pose (Tadasana)</h3>
-      <p id="pose-description">
-        This foundational pose improves posture, strengthens thighs, knees, and ankles, and firms the abdomen and buttocks. It also helps to alleviate sciatica.
-      </p>
-      <button class="generate-pose-button start-breathing-button">Discover Another Pose</button>
-    </div>
-  </section>
-
-
-  <section class="fun-surprise">
-    <div class="lotus-rise"></div>
-    <p class="serenity-text">You are rooted. You are radiant. <span class="flower-emoji">🌸</span></p>
-  </section>
-
-  <footer class="site-footer">
-    <p>&copy; 2025 BLOOMÉ. Flow into your light ✨</p>
-    <div class="social-links">
-      <a href="#">Instagram</a>
-      <a href="#">Facebook</a>
-      <a href="#">X</a>
-    </div>
-  </footer>
-
+    <!-- Scripts -->
     <script src="../js/Gym.js"></script>
 </body>
-
 </html>

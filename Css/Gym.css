@@ -1,725 +1,1412 @@
- :root {
-      --primary-color: #ffb6c1;
-      /* Light Pink */
-      --secondary-color: #aed6ee;
-      /* Light Blue */
-      --accent-color: #ffe082;
-      /* Light Yellow */
-      --text-color: #333;
-      --background-color: #f8f8f8;
-      --header-bg: #fff;
-      --footer-bg: #333;
-      --footer-text: #fff;
-      --card-bg: #fff;
-      --card-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
-      --section-bg-light: #f0f8ff; /* Alice Blue */
-      --section-bg-medium: #e0f7fa; /* Light Cyan */
+/* ===== CSS VARIABLES ===== */
+:root {
+    --primary-color: #ff6b9d;
+    --secondary-color: #74b9ff;
+    --accent-color: #a8e6cf;
+    --success-color: #00b894;
+    --warning-color: #fdcb6e;
+    --danger-color: #e17055;
+    --dark-color: #2d3436;
+    --light-color: #ddd;
+    --white: #ffffff;
+    --black: #000000;
+    --text-primary: #374151;
+    --text-secondary: #6b7280;
+    --text-light: #9ca3af;
+    --bg-primary: #ffffff;
+    --bg-secondary: #f8fafc;
+    --bg-gradient: linear-gradient(135deg, #fff5f5 0%, #fef7f0 25%, #f0f9ff 50%, #f5f3ff 75%, #fdf2f8 100%);
+    --shadow-light: 0 4px 6px rgba(0, 0, 0, 0.05);
+    --shadow-medium: 0 8px 25px rgba(0, 0, 0, 0.1);
+    --shadow-heavy: 0 20px 40px rgba(0, 0, 0, 0.15);
+    --border-radius: 20px;
+    --transition: all 0.3s ease;
+    --font-primary: 'Poppins', sans-serif;
+    --font-display: 'Playfair Display', serif;
+    --font-script: 'Dancing Script', cursive;
+}
+
+/* ===== DARK THEME ===== */
+.dark-theme {
+    --text-primary: #f3f4f6;
+    --text-secondary: #d1d5db;
+    --text-light: #9ca3af;
+    --bg-primary: #1f2937;
+    --bg-secondary: #374151;
+    --bg-gradient: linear-gradient(135deg, #1f2937 0%, #374151 25%, #4b5563 50%, #6b7280 75%, #9ca3af 100%);
+}
+
+/* ===== RESET & BASE ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: var(--font-primary);
+    background: var(--bg-gradient);
+    background-attachment: fixed;
+    color: var(--text-primary);
+    line-height: 1.6;
+    overflow-x: hidden;
+    transition: var(--transition);
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+/* ===== LOADING SCREEN ===== */
+.loading {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--bg-gradient);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+    transition: opacity 0.5s ease;
+}
+
+.loading.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.loading-spinner {
+    width: 60px;
+    height: 60px;
+    border: 4px solid var(--light-color);
+    border-top: 4px solid var(--primary-color);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* ===== FLOATING BACKGROUND ELEMENTS ===== */
+.floating-elements {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.floating-shape {
+    position: absolute;
+    opacity: 0.1;
+    animation: gentleFloat 12s ease-in-out infinite;
+}
+
+.floating-shape:nth-child(1) { 
+    width: 60px; 
+    height: 60px; 
+    background: linear-gradient(45deg, var(--primary-color), var(--warning-color));
+    border-radius: 50%;
+    top: 20%; 
+    left: 10%;
+    animation-delay: 0s;
+}
+
+.floating-shape:nth-child(2) { 
+    width: 80px; 
+    height: 80px; 
+    background: linear-gradient(45deg, var(--secondary-color), var(--accent-color));
+    border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+    top: 60%; 
+    right: 15%;
+    animation-delay: -4s;
+}
+
+.floating-shape:nth-child(3) { 
+    width: 100px; 
+    height: 100px; 
+    background: linear-gradient(45deg, var(--primary-color), var(--warning-color));
+    border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+    bottom: 30%; 
+    left: 20%;
+    animation-delay: -8s;
+}
+
+@keyframes gentleFloat {
+    0%, 100% { transform: translateY(0px) rotate(0deg); }
+    33% { transform: translateY(-30px) rotate(120deg); }
+    66% { transform: translateY(15px) rotate(240deg); }
+}
+
+/* ===== HEADER ===== */
+.site-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
+    box-shadow: var(--shadow-medium);
+    transition: var(--transition);
+}
+
+.dark-theme .site-header {
+    background: rgba(31, 41, 55, 0.95);
+}
+
+.nav-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    max-width: 1400px;
+    margin: 0 auto;
+    position: relative;
+}
+
+.logo {
+    font-family: var(--font-script);
+    font-size: 2.8rem;
+    font-weight: 700;
+    background: linear-gradient(45deg, var(--primary-color), var(--secondary-color), var(--accent-color));
+    background-size: 400% 400%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: logoShimmer 4s ease-in-out infinite;
+    position: relative;
+}
+
+.logo::after {
+    content: '✨';
+    position: absolute;
+    top: -10px;
+    right: -20px;
+    animation: sparkle 2s ease-in-out infinite;
+}
+
+@keyframes logoShimmer {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+}
+
+@keyframes sparkle {
+    0%, 100% { opacity: 0.3; transform: scale(0.8); }
+    50% { opacity: 1; transform: scale(1.2); }
+}
+
+.main-nav {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+.main-nav a {
+    color: var(--text-primary);
+    text-decoration: none;
+    font-weight: 500;
+    padding: 0.8rem 1.5rem;
+    border-radius: 25px;
+    transition: var(--transition);
+    position: relative;
+    overflow: hidden;
+}
+
+.main-nav a::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    border-radius: 25px;
+}
+
+.main-nav a:hover::before {
+    opacity: 0.1;
+}
+
+.main-nav a:hover {
+    color: var(--primary-color);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(255, 107, 157, 0.3);
+}
+
+.nav-cta {
+    background: linear-gradient(45deg, var(--primary-color), var(--secondary-color)) !important;
+    color: var(--white) !important;
+    margin-left: 1rem;
+    box-shadow: 0 4px 15px rgba(255, 107, 157, 0.4);
+}
+
+.nav-cta:hover {
+    color: var(--white) !important;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(255, 107, 157, 0.6);
+}
+
+.theme-toggle {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: 50%;
+    transition: var(--transition);
+    margin-left: 1rem;
+}
+
+.theme-toggle:hover {
+    background: rgba(255, 107, 157, 0.1);
+    transform: rotate(15deg);
+}
+
+/* Mobile Menu */
+.mobile-menu-toggle {
+    display: none;
+    flex-direction: column;
+    gap: 4px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+}
+
+.mobile-menu-toggle span {
+    width: 25px;
+    height: 3px;
+    background: var(--text-primary);
+    border-radius: 2px;
+    transition: var(--transition);
+}
+
+.mobile-menu-toggle.active span:nth-child(1) {
+    transform: rotate(45deg) translate(8px, 8px);
+}
+
+.mobile-menu-toggle.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.mobile-menu-toggle.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(7px, -6px);
+}
+
+/* ===== HERO SECTION ===== */
+.page-hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    padding: 2rem;
+    background: var(--bg-gradient);
+}
+
+.hero-content {
+    text-align: center;
+    z-index: 10;
+    position: relative;
+    max-width: 800px;
+}
+
+.animate-text-split {
+    font-family: var(--font-display);
+    font-size: 4.5rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    background: linear-gradient(45deg, var(--text-primary), var(--primary-color), var(--secondary-color));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.animate-text-split span {
+    display: inline-block;
+    opacity: 0;
+    animation: letterDrop 0.6s ease-out forwards;
+}
+
+@keyframes letterDrop {
+    0% { opacity: 0; transform: translateY(-50px) rotateZ(-10deg); }
+    100% { opacity: 1; transform: translateY(0) rotateZ(0deg); }
+}
+
+.animate-text-fade {
+    font-size: 1.3rem;
+    color: var(--text-secondary);
+    margin-bottom: 2rem;
+    opacity: 0;
+    animation: fadeInUp 1s ease-out 1s forwards;
+}
+
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.sparkle-emoji {
+    animation: sparkle 2s ease-in-out infinite;
+}
+
+/* Floating Elements Container */
+.floating-elements-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+.floating-petal,
+.floating-leaf,
+.floating-bubble {
+    position: absolute;
+    border-radius: 50%;
+    opacity: 0.6;
+    animation: floatUp 8s linear infinite;
+}
+
+.floating-petal {
+    background: radial-gradient(circle, var(--primary-color), transparent);
+}
+
+.floating-leaf {
+    background: radial-gradient(circle, var(--accent-color), transparent);
+    border-radius: 0 100% 0 100%;
+}
+
+.floating-bubble {
+    background: radial-gradient(circle, var(--secondary-color), transparent);
+    border: 2px solid rgba(116, 185, 255, 0.3);
+}
+
+@keyframes floatUp {
+    0% {
+        transform: translateY(100vh) scale(0);
+        opacity: 0;
     }
-
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      margin: 0;
-      line-height: 1.6;
-      color: var(--text-color);
-      background-color: var(--background-color);
-      overflow-x: hidden;
+    10% {
+        opacity: 0.6;
     }
-
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 20px;
+    90% {
+        opacity: 0.6;
     }
-
-    /* Header */
-    .site-header {
-      background-color: var(--header-bg);
-      padding: 15px 0;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-      position: sticky;
-      top: 0;
-      z-index: 1000;
+    100% {
+        transform: translateY(-100px) scale(1);
+        opacity: 0;
     }
+}
 
-    .nav-wrapper {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+/* ===== YOGA SECTION ===== */
+.yoga-section {
+    padding: 8rem 0 6rem;
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(10px);
+    position: relative;
+    z-index: 10;
+}
+
+.dark-theme .yoga-section {
+    background: rgba(31, 41, 55, 0.8);
+}
+
+.section-title {
+    text-align: center;
+    font-family: var(--font-display);
+    font-size: 3rem;
+    margin-bottom: 4rem;
+    background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.yoga-categories-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 3rem;
+    margin-top: 3rem;
+}
+
+.yoga-category {
+    position: relative;
+    opacity: 0;
+    transform: translateY(50px);
+    transition: all 0.6s ease;
+}
+
+.yoga-category.animate {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.yoga-category h3 {
+    font-family: var(--font-display);
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+    color: var(--text-primary);
+}
+
+.difficulty-indicator {
+    display: inline-block;
+    padding: 0.4rem 1rem;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+}
+
+.difficulty-indicator.beginner {
+    background: linear-gradient(45deg, var(--success-color), var(--accent-color));
+    color: white;
+}
+
+.difficulty-indicator.intermediate {
+    background: linear-gradient(45deg, var(--warning-color), var(--primary-color));
+    color: white;
+}
+
+.difficulty-indicator.advanced {
+    background: linear-gradient(45deg, var(--danger-color), var(--primary-color));
+    color: white;
+}
+
+.yoga-card {
+    background: var(--white);
+    border-radius: var(--border-radius);
+    padding: 2rem;
+    box-shadow: var(--shadow-medium);
+    transition: var(--transition);
+    position: relative;
+    overflow: hidden;
+}
+
+.dark-theme .yoga-card {
+    background: var(--bg-secondary);
+}
+
+.yoga-card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(45deg, transparent, rgba(255, 107, 157, 0.1), transparent);
+    transform: rotate(-45deg);
+    transition: var(--transition);
+    opacity: 0;
+}
+
+.yoga-card:hover::before {
+    animation: shimmer 2s ease-in-out;
+}
+
+@keyframes shimmer {
+    0% { transform: translateX(-100%) translateY(-100%) rotate(-45deg); opacity: 0; }
+    50% { opacity: 1; }
+    100% { transform: translateX(100%) translateY(100%) rotate(-45deg); opacity: 0; }
+}
+
+.yoga-card:hover {
+    transform: translateY(-10px);
+    box-shadow: var(--shadow-heavy);
+}
+
+.video-thumbnail {
+    position: relative;
+    border-radius: 15px;
+    overflow: hidden;
+    margin-bottom: 1.5rem;
+    cursor: pointer;
+}
+
+.video-thumbnail img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    transition: var(--transition);
+}
+
+.video-thumbnail:hover img {
+    transform: scale(1.05);
+}
+
+.play-button {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 60px;
+    height: 60px;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    transition: var(--transition);
+    backdrop-filter: blur(10px);
+}
+
+.play-button:hover {
+    transform: translate(-50%, -50%) scale(1.1);
+    background: rgba(255, 107, 157, 0.9);
+    color: white;
+}
+
+.duration-badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 0.3rem 0.8rem;
+    border-radius: 15px;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.yoga-benefits {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 1rem;
+}
+
+.benefit-tag {
+    background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+    color: white;
+    padding: 0.4rem 0.8rem;
+    border-radius: 15px;
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+
+/* ===== BREATHING GUIDE ===== */
+.breathing-guide {
+    padding: 8rem 0;
+    text-align: center;
+    position: relative;
+    z-index: 10;
+}
+
+.breathing-guide h3 {
+    font-family: var(--font-display);
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    color: var(--text-primary);
+}
+
+.breathing-guide p {
+    font-size: 1.2rem;
+    color: var(--text-secondary);
+    margin-bottom: 3rem;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.breath-circle-container {
+    position: relative;
+    width: 300px;
+    height: 300px;
+    margin: 3rem auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.breath-circle {
+    width: 200px;
+    height: 200px;
+    border: 3px solid var(--primary-color);
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255, 107, 157, 0.1), transparent);
+    transition: all 4s ease-in-out;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.breath-circle.inhale {
+    transform: scale(1.5);
+    background: radial-gradient(circle, rgba(255, 107, 157, 0.2), transparent);
+}
+
+.breath-circle.exhale {
+    transform: scale(0.8);
+    background: radial-gradient(circle, rgba(116, 185, 255, 0.2), transparent);
+}
+
+.breath-instructions {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+.breath-phase {
+    display: block;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+}
+
+.breath-count {
+    display: block;
+    font-size: 3rem;
+    font-weight: 700;
+    color: var(--primary-color);
+}
+
+.start-breathing-button {
+    background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+    color: white;
+    border: none;
+    padding: 1rem 2rem;
+    border-radius: 50px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+    margin: 2rem 0;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.start-breathing-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(255, 107, 157, 0.4);
+}
+
+.breathing-benefits {
+    display: flex;
+    justify-content: center;
+    gap: 3rem;
+    margin-top: 3rem;
+    flex-wrap: wrap;
+}
+
+.benefit-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.benefit-icon {
+    font-size: 2rem;
+}
+
+.benefit-text {
+    font-weight: 600;
+    color: var(--text-secondary);
+}
+
+/* ===== PROGRESS SECTION ===== */
+.workout-progress-section {
+    padding: 8rem 0;
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(10px);
+    position: relative;
+    z-index: 10;
+    text-align: center;
+}
+
+.dark-theme .workout-progress-section {
+    background: rgba(31, 41, 55, 0.8);
+}
+
+.workout-progress-section h2 {
+    font-family: var(--font-display);
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.workout-progress-section p {
+    font-size: 1.2rem;
+    color: var(--text-secondary);
+    margin-bottom: 3rem;
+}
+
+.chart-wrapper {
+    max-width: 800px;
+    margin: 0 auto;
+    background: var(--white);
+    padding: 3rem;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-medium);
+}
+
+.dark-theme .chart-wrapper {
+    background: var(--bg-secondary);
+}
+
+.chart-wrapper h3 {
+    font-size: 1.8rem;
+    margin-bottom: 2rem;
+    color: var(--text-primary);
+}
+
+.bar-chart {
+    display: flex;
+    align-items: end;
+    gap: 2rem;
+    height: 300px;
+    padding: 2rem 0;
+}
+
+.chart-bar {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    height: 100%;
+    justify-content: end;
+}
+
+.chart-bar-fill {
+    width: 100%;
+    background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+    border-radius: 10px 10px 0 0;
+    transition: height 2s ease;
+    height: 0%;
+    position: relative;
+}
+
+.chart-bar-fill.vinyasa {
+    background: linear-gradient(45deg, var(--primary-color), var(--warning-color));
+}
+
+.chart-bar-fill.restorative {
+    background: linear-gradient(45deg, var(--accent-color), var(--success-color));
+}
+
+.chart-bar-fill.power {
+    background: linear-gradient(45deg, var(--danger-color), var(--primary-color));
+}
+
+.chart-bar-fill.meditation {
+    background: linear-gradient(45deg, var(--secondary-color), var(--accent-color));
+}
+
+.chart-bar-value {
+    position: absolute;
+    top: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-weight: 700;
+    color: var(--text-primary);
+    font-size: 1rem;
+}
+
+.chart-bar-label {
+    margin-top: 1rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    transform: rotate(-15deg);
+}
+
+.chart-legend {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin-top: 2rem;
+    flex-wrap: wrap;
+}
+
+.chart-legend-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.legend-color {
+    width: 20px;
+    height: 20px;
+    border-radius: 5px;
+}
+
+.legend-color.vinyasa {
+    background: linear-gradient(45deg, var(--primary-color), var(--warning-color));
+}
+
+.legend-color.restorative {
+    background: linear-gradient(45deg, var(--accent-color), var(--success-color));
+}
+
+.legend-color.power {
+    background: linear-gradient(45deg, var(--danger-color), var(--primary-color));
+}
+
+.legend-color.meditation {
+    background: linear-gradient(45deg, var(--secondary-color), var(--accent-color));
+}
+
+.legend-text {
+    font-weight: 500;
+    color: var(--text-secondary);
+}
+
+/* ===== POSE OF THE DAY ===== */
+.pose-of-the-day {
+    padding: 8rem 0;
+    text-align: center;
+    position: relative;
+    z-index: 10;
+}
+
+.pose-of-the-day h2 {
+    font-family: var(--font-display);
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.pose-of-the-day p {
+    font-size: 1.2rem;
+    color: var(--text-secondary);
+    margin-bottom: 3rem;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.pose-card {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--white);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-medium);
+    overflow: hidden;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    transition: var(--transition);
+}
+
+.dark-theme .pose-card {
+    background: var(--bg-secondary);
+}
+
+.pose-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-heavy);
+}
+
+.pose-image-container {
+    position: relative;
+    overflow: hidden;
+}
+
+.pose-image-container img {
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+    transition: var(--transition);
+}
+
+.pose-card:hover .pose-image-container img {
+    transform: scale(1.05);
+}
+
+.pose-difficulty {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    background: rgba(255, 107, 157, 0.9);
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-weight: 600;
+    backdrop-filter: blur(10px);
+}
+
+.pose-info {
+    padding: 3rem;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.pose-info h3 {
+    font-family: var(--font-display);
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    color: var(--text-primary);
+}
+
+.pose-info p {
+    color: var(--text-secondary);
+    margin-bottom: 1.5rem;
+    line-height: 1.7;
+}
+
+.pose-instructions {
+    margin: 1.5rem 0;
+}
+
+.pose-instructions h4 {
+    color: var(--text-primary);
+    margin-bottom: 1rem;
+}
+
+.pose-instructions ol {
+    color: var(--text-secondary);
+    padding-left: 1.5rem;
+}
+
+.pose-instructions li {
+    margin-bottom: 0.5rem;
+}
+
+.generate-pose-button {
+    background: linear-gradient(45deg, var(--accent-color), var(--success-color));
+    color: white;
+    border: none;
+    padding: 1rem 1.5rem;
+    border-radius: 25px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 1rem;
+}
+
+.generate-pose-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(168, 230, 207, 0.4);
+}
+
+/* ===== INSPIRATIONAL SECTION ===== */
+.fun-surprise {
+    padding: 8rem 0;
+    text-align: center;
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(10px);
+    position: relative;
+    z-index: 10;
+    overflow: hidden;
+}
+
+.dark-theme .fun-surprise {
+    background: rgba(31, 41, 55, 0.8);
+}
+
+.lotus-rise {
+    width: 100px;
+    height: 100px;
+    background: linear-gradient(45deg, var(--primary-color), var(--accent-color));
+    border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+    margin: 0 auto 2rem;
+    animation: lotusFloat 4s ease-in-out infinite;
+    position: relative;
+}
+
+.lotus-rise::before {
+    content: '🪷';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 3rem;
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.1));
+}
+
+@keyframes lotusFloat {
+    0%, 100% { transform: translateY(0px) rotate(0deg); }
+    50% { transform: translateY(-20px) rotate(180deg); }
+}
+
+.serenity-text {
+    font-family: var(--font-display);
+    font-size: 2rem;
+    color: var(--text-primary);
+    margin-bottom: 3rem;
+    opacity: 0;
+    animation: fadeInUp 1s ease-out 0.5s forwards;
+}
+
+.flower-emoji {
+    animation: sparkle 2s ease-in-out infinite;
+}
+
+.inspirational-quotes {
+    position: relative;
+    max-width: 700px;
+    margin: 0 auto;
+    height: 200px;
+}
+
+.quote-card {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: var(--white);
+    padding: 2rem;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-medium);
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.8s ease;
+}
+
+.dark-theme .quote-card {
+    background: var(--bg-secondary);
+}
+
+.quote-card.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.quote-card p {
+    font-family: var(--font-display);
+    font-size: 1.4rem;
+    font-style: italic;
+    color: var(--text-primary);
+    margin-bottom: 1rem;
+    line-height: 1.6;
+}
+
+.quote-author {
+    color: var(--text-secondary);
+    font-weight: 600;
+}
+
+/* ===== FOOTER ===== */
+.site-footer {
+    background: linear-gradient(135deg, var(--dark-color), var(--text-primary));
+    color: white;
+    padding: 4rem 0 2rem;
+    position: relative;
+    z-index: 10;
+}
+
+.footer-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 3rem;
+    margin-bottom: 3rem;
+}
+
+.footer-section h3 {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    background: linear-gradient(45deg, var(--primary-color), var(--accent-color));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.footer-section p {
+    color: rgba(255, 255, 255, 0.8);
+    line-height: 1.7;
+}
+
+.footer-section a {
+    display: block;
+    color: rgba(255, 255, 255, 0.8);
+    text-decoration: none;
+    margin-bottom: 0.5rem;
+    transition: var(--transition);
+}
+
+.footer-section a:hover {
+    color: var(--primary-color);
+    transform: translateX(5px);
+}
+
+.social-links {
+    display: flex;
+    gap: 1rem;
+}
+
+.social-links a {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    font-size: 1.5rem;
+    transition: var(--transition);
+}
+
+.social-links a:hover {
+    background: var(--primary-color);
+    transform: translateY(-5px);
+}
+
+.footer-bottom {
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding-top: 2rem;
+    text-align: center;
+}
+
+.footer-bottom p {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 0.9rem;
+}
+
+/* ===== REVEAL ANIMATIONS ===== */
+.reveal-on-scroll {
+    opacity: 0;
+    transform: translateY(50px);
+    transition: all 0.8s ease;
+}
+
+.reveal-on-scroll.animate {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ===== RESPONSIVE DESIGN ===== */
+@media (max-width: 768px) {
+    .mobile-menu-toggle {
+        display: flex;
     }
-
-    .logo {
-      font-size: 1.8em;
-      color: var(--primary-color);
-      margin: 0;
-      font-weight: bold;
-      letter-spacing: 2px;
-      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
-    }
-
-    .main-nav a {
-      color: var(--text-color);
-      text-decoration: none;
-      margin-left: 25px;
-      font-weight: 500;
-      transition: color 0.3s ease, transform 0.3s ease;
-    }
-
-    .main-nav a:hover,
-    .main-nav a.active {
-      color: var(--primary-color);
-      transform: translateY(-2px);
-    }
-
-    .theme-toggle {
-      font-size: 1.5em;
-      cursor: pointer;
-      transition: transform 0.3s ease;
-    }
-
-    .theme-toggle:hover {
-      transform: rotate(20deg);
-    }
-
-    /* Page Hero */
-    .page-hero {
-      background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
-      color: #fff;
-      text-align: center;
-      padding: 100px 20px;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .hero-content {
-      position: relative;
-      z-index: 1;
-    }
-
-    .page-hero h2 {
-      font-size: 3.5em;
-      margin-bottom: 15px;
-      font-weight: bold;
-    }
-
-    .page-hero p {
-      font-size: 1.3em;
-      max-width: 700px;
-      margin: 0 auto;
-    }
-
-    /* Floating Elements Container (for hero) */
-    .floating-elements-container {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      overflow: hidden;
-    }
-
-    /* Yoga Section */
-    .yoga-section {
-      padding: 80px 20px;
-      text-align: center;
-      background-color: var(--section-bg-light);
-    }
-
-    .yoga-section h2 {
-      font-size: 2.8em;
-      color: var(--primary-color);
-      margin-bottom: 50px;
-    }
-
-    .yoga-categories-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 40px;
-      max-width: 1000px;
-      margin: 0 auto;
-    }
-
-    .yoga-category {
-      background-color: var(--card-bg);
-      padding: 30px;
-      border-radius: 15px;
-      box-shadow: var(--card-shadow);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      opacity: 0; /* For reveal animation */
-      transform: translateY(30px);
-      text-align: left;
-      position: relative;
-    }
-
-    .yoga-category:hover {
-      transform: translateY(-10px) scale(1.02);
-      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.12);
-    }
-
-    .yoga-category h3 {
-      font-size: 2em;
-      color: var(--secondary-color);
-      margin-top: 0;
-      margin-bottom: 20px;
-      text-align: center;
-    }
-
-    .difficulty-indicator {
-      position: absolute;
-      top: 15px;
-      right: 15px;
-      background-color: var(--primary-color);
-      color: #fff;
-      padding: 8px 15px;
-      border-radius: 20px;
-      font-size: 0.9em;
-      font-weight: bold;
-      animation: pulse 1.5s infinite alternate;
-    }
-
-    .difficulty-indicator.beginner { background-color: #8bc34a; } /* Light Green */
-    .difficulty-indicator.intermediate { background-color: #ffc107; } /* Amber */
-    .difficulty-indicator.advanced { background-color: #e91e63; } /* Pink */
-
-    @keyframes pulse {
-        from { transform: scale(1); opacity: 0.9; }
-        to { transform: scale(1.05); opacity: 1; }
-    }
-
-
-    .yoga-card {
-      margin-bottom: 20px;
-    }
-
-    .video-thumbnail {
-      width: 100%;
-      height: 200px;
-      background-color: #ddd;
-      border-radius: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #777;
-      font-weight: bold;
-      margin-bottom: 15px;
-      cursor: pointer;
-      overflow: hidden;
-      position: relative;
-      transition: all 0.3s ease;
-    }
-
-    .video-thumbnail img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        position: absolute;
-        top: 0;
+    
+    .main-nav {
+        position: fixed;
+        top: 100%;
         left: 0;
-        transition: transform 0.3s ease;
+        right: 0;
+        background: var(--white);
+        flex-direction: column;
+        padding: 2rem;
+        box-shadow: var(--shadow-heavy);
+        transform: translateY(-100%);
+        transition: var(--transition);
+        opacity: 0;
+        visibility: hidden;
     }
-
-    .video-thumbnail:hover img {
-        transform: scale(1.05);
+    
+    .dark-theme .main-nav {
+        background: var(--bg-primary);
     }
-
-    .play-button {
-      position: absolute;
-      font-size: 3em;
-      color: rgba(255, 255, 255, 0.8);
-      text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-      z-index: 10;
-      transition: transform 0.2s ease;
+    
+    .main-nav.active {
+        transform: translateY(0);
+        opacity: 1;
+        visibility: visible;
     }
-
-    .video-thumbnail:hover .play-button {
-        transform: scale(1.1);
+    
+    .main-nav a {
+        padding: 1rem;
+        width: 100%;
+        text-align: center;
+        border-radius: 10px;
     }
-
-    .yoga-card p {
-      font-size: 0.95em;
-      color: #555;
+    
+    .nav-cta {
+        margin-left: 0 !important;
+        margin-top: 1rem;
     }
-
-    /* Breathing Guide */
-    .breathing-guide {
-      padding: 80px 20px;
-      text-align: center;
-      background: linear-gradient(135deg, #ccf0e9 0%, #d8eaff 100%); /* Light aqua to light blue */
-      position: relative;
-      overflow: hidden;
+    
+    .theme-toggle {
+        margin-left: 0;
     }
-
-    .breathing-guide h3 {
-      font-size: 2.5em;
-      color: #3385ff; /* A calming blue */
-      margin-bottom: 40px;
+    
+    .animate-text-split {
+        font-size: 3rem;
     }
+    
+    .animate-text-fade {
+        font-size: 1.1rem;
+    }
+    
+    .section-title {
+        font-size: 2.5rem;
+    }
+    
+    .yoga-categories-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+    
+    .pose-card {
+        grid-template-columns: 1fr;
+    }
+    
+    .pose-image-container img {
+        height: 250px;
+    }
+    
+    .pose-info {
+        padding: 2rem;
+    }
+    
+    .bar-chart {
+        flex-direction: column;
+        height: auto;
+        gap: 1rem;
+    }
+    
+    .chart-bar {
+        flex-direction: row;
+        height: 50px;
+        align-items: center;
+    }
+    
+    .chart-bar-fill {
+        height: 100% !important;
+        width: 0%;
+        border-radius: 0 25px 25px 0;
+        transition: width 2s ease;
+    }
+    
+    .chart-bar-value {
+        position: static;
+        transform: none;
+        margin-left: 1rem;
+        order: 2;
+    }
+    
+    .chart-bar-label {
+        transform: none;
+        margin-top: 0;
+        margin-right: 1rem;
+        order: 1;
+        min-width: 80px;
+        text-align: left;
+    }
+    
+    .breathing-benefits {
+        gap: 1rem;
+    }
+    
+    .footer-content {
+        grid-template-columns: 1fr;
+        text-align: center;
+        gap: 2rem;
+    }
+    
+    .social-links {
+        justify-content: center;
+    }
+}
 
+@media (max-width: 480px) {
+    .container {
+        padding: 0 1rem;
+    }
+    
+    .nav-wrapper {
+        padding: 1rem;
+    }
+    
+    .logo {
+        font-size: 2.2rem;
+    }
+    
+    .animate-text-split {
+        font-size: 2.5rem;
+    }
+    
     .breath-circle-container {
         width: 250px;
         height: 250px;
-        border-radius: 50%;
-        background-color: rgba(255, 255, 255, 0.5);
-        margin: 0 auto 30px auto;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
-        position: relative;
-        overflow: hidden;
     }
-
+    
     .breath-circle {
-      width: 150px;
-      height: 150px;
-      background-color: var(--primary-color);
-      border-radius: 50%;
-      transform: scale(1);
-      transition: transform 0.5s ease-in-out;
-      box-shadow: 0 0 20px rgba(255, 182, 193, 0.6);
-      opacity: 0.8;
+        width: 150px;
+        height: 150px;
     }
-
-    .breath-circle.breathing-in {
-      animation: breatheIn 4s forwards ease-in-out;
-    }
-
-    .breath-circle.breathing-out {
-      animation: breatheOut 4s forwards ease-in-out;
-    }
-
-    @keyframes breatheIn {
-      from { transform: scale(0.8); opacity: 0.6; }
-      to { transform: scale(1.2); opacity: 1; }
-    }
-
-    @keyframes breatheOut {
-      from { transform: scale(1.2); opacity: 1; }
-      to { transform: scale(0.8); opacity: 0.6; }
-    }
-
-    .inhale-exhale {
-      font-size: 1.8em;
-      font-weight: bold;
-      color: #555;
-      min-height: 1.5em; /* Prevent layout shift */
-    }
-
-    .start-breathing-button {
-        background-color: var(--secondary-color);
-        color: #fff;
-        border: none;
-        padding: 15px 30px;
-        font-size: 1.1em;
-        border-radius: 30px;
-        cursor: pointer;
-        transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
-        margin-top: 20px;
-    }
-
-    .start-breathing-button:hover {
-        background-color: #89cff0;
-        transform: translateY(-3px);
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-    }
-
-
-    /* Workout Progress Chart */
-    .workout-progress-section {
-      padding: 80px 20px;
-      text-align: center;
-      background-color: var(--background-color);
-    }
-
-    .workout-progress-section h2 {
-      font-size: 2.8em;
-      color: var(--primary-color);
-      margin-bottom: 50px;
-    }
-
+    
     .chart-wrapper {
-      max-width: 900px;
-      margin: 0 auto;
-      background-color: var(--card-bg);
-      border-radius: 15px;
-      box-shadow: var(--card-shadow);
-      padding: 40px 20px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      opacity: 0;
-      transform: scale(0.9);
-      transition: opacity 1s ease, transform 1s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+        padding: 2rem 1rem;
     }
-
-    .chart-wrapper.is-visible {
-        opacity: 1;
-        transform: scale(1);
+    
+    .pose-info {
+        padding: 1.5rem;
     }
-
-    .bar-chart {
-      display: flex;
-      justify-content: space-around;
-      width: 100%;
-      height: 250px;
-      align-items: flex-end;
-      padding-bottom: 20px;
-      border-bottom: 2px solid #eee;
-      margin-bottom: 20px;
-    }
-
-    .chart-bar {
-      width: 18%;
-      background-color: var(--secondary-color);
-      border-radius: 8px 8px 0 0;
-      position: relative;
-      transition: height 1.5s ease-out;
-      height: 0; /* Start at 0 for animation */
-      display: flex;
-      align-items: flex-end;
-      justify-content: center;
-      padding-bottom: 5px; /* For value text */
-    }
-
-    .chart-bar-value {
-      color: #fff;
-      font-weight: bold;
-      font-size: 1.1em;
-      opacity: 0; /* Hide initially */
-      transition: opacity 0.5s ease 1s; /* Appear after height animation */
-    }
-
-    .chart-bar-label {
-      position: absolute;
-      bottom: -30px;
-      font-size: 0.9em;
-      color: #777;
-    }
-
-    .chart-legend {
-        display: flex;
-        justify-content: center;
-        gap: 30px;
-        margin-top: 20px;
-        font-size: 0.9em;
-        color: #666;
-    }
-
-    .chart-legend-item span {
-        display: inline-block;
-        width: 15px;
-        height: 15px;
-        border-radius: 3px;
-        margin-right: 8px;
-        vertical-align: middle;
-    }
-
-    .chart-bar.animate .chart-bar-value {
-        opacity: 1;
-    }
-
-
-    /* Pose of the Day */
-    .pose-of-the-day {
-        padding: 80px 20px;
-        text-align: center;
-        background: linear-gradient(135deg, #fffafa 0%, #fefcfd 100%);
-        color: var(--text-color);
-    }
-
-    .pose-of-the-day h2 {
-        font-size: 2.8em;
-        color: var(--primary-color);
-        margin-bottom: 40px;
-    }
-
-    .pose-card {
-        background-color: var(--card-bg);
-        border-radius: 15px;
-        box-shadow: var(--card-shadow);
-        max-width: 700px;
-        margin: 0 auto;
-        padding: 30px;
-        display: flex;
+    
+    .breathing-benefits {
         flex-direction: column;
         align-items: center;
-        gap: 20px;
-        opacity: 0;
-        transform: translateY(30px);
-        transition: opacity 0.8s ease, transform 0.8s ease;
     }
+}
 
-    .pose-card.is-visible {
-        opacity: 1;
-        transform: translateY(0);
+/* ===== ACCESSIBILITY ===== */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
     }
-
-    .pose-card img {
-        width: 100%;
-        max-width: 350px;
-        height: auto;
-        border-radius: 10px;
-        object-fit: cover;
-        border: 3px solid var(--secondary-color);
-        transition: transform 0.3s ease;
+    
+    .floating-shape,
+    .floating-petal,
+    .floating-leaf,
+    .floating-bubble {
+        animation: none;
     }
+}
 
-    .pose-card img:hover {
-        transform: scale(1.03);
+/* ===== PRINT STYLES ===== */
+@media print {
+    .site-header,
+    .floating-elements,
+    .start-breathing-button,
+    .generate-pose-button,
+    .mobile-menu-toggle,
+    .theme-toggle {
+        display: none !important;
     }
-
-    .pose-card h3 {
-        font-size: 2.2em;
-        color: var(--secondary-color);
-        margin-bottom: 10px;
+    
+    body {
+        background: white !important;
+        color: black !important;
     }
-
-    .pose-card p {
-        font-size: 1.1em;
-        line-height: 1.8;
-    }
-
-    /* Fun Surprise Section */
+    
+    .page-hero,
+    .yoga-section,
+    .breathing-guide,
+    .workout-progress-section,
+    .pose-of-the-day,
     .fun-surprise {
-      text-align: center;
-      padding: 80px 20px;
-      background-color: var(--section-bg-medium);
-      position: relative;
-      overflow: hidden;
+        background: white !important;
+        box-shadow: none !important;
     }
-
-    .lotus-rise {
-      width: 180px;
-      height: 180px;
-      background-image: url('https://images.unsplash.com/photo-1594917415133-c793d5f8c6d7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w1MDcxMzJ8MHwxfHNlYXJjaHwxfHxsb3R1cyUyMGZsb3dlcnxlbnwwfHx8fDE3MDE5NTc1OTF8MA&ixlib=rb-4.0.3&q=80&w=1080');
-      background-size: contain;
-      background-repeat: no-repeat;
-      margin: 0 auto 30px auto;
-      transform: translateY(100px) scale(0.5); /* Start off-screen, small */
-      opacity: 0;
-      animation: lotusFloatUp 3s ease-out forwards;
-      animation-delay: 0.5s;
-    }
-
-    @keyframes lotusFloatUp {
-      0% { transform: translateY(100px) scale(0.5); opacity: 0; }
-      50% { transform: translateY(-20px) scale(1.1); opacity: 1; }
-      100% { transform: translateY(0) scale(1); opacity: 1; }
-    }
-
-
-    .serenity-text {
-      font-size: 2em;
-      font-weight: bold;
-      color: var(--primary-color);
-      opacity: 0;
-      transform: translateY(20px);
-      animation: fadeInSlideUp 1s ease-out forwards;
-      animation-delay: 2s; /* Appear after lotus */
-    }
-
-    /* Footer */
-    .site-footer {
-      background-color: var(--footer-bg);
-      color: var(--footer-text);
-      text-align: center;
-      padding: 30px 20px;
-      font-size: 0.9em;
-    }
-
-    .site-footer p {
-      margin-bottom: 15px;
-    }
-
-    .social-links a {
-      color: var(--footer-text);
-      text-decoration: none;
-      margin: 0 10px;
-      transition: color 0.3s ease, transform 0.3s ease;
-    }
-
-    .social-links a:hover {
-      color: var(--primary-color);
-      transform: translateY(-2px);
-    }
-
-    /* --- Animations CSS (Shared) --- */
-    @keyframes fadeInSlideUp {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    .animate-text-split span {
-      display: inline-block;
-      opacity: 0;
-      transform: translateY(20px);
-      animation: splitTextReveal 0.8s forwards;
-      animation-timing-function: cubic-bezier(0.2, 0.8, 0.2, 1);
-    }
-
-    @keyframes splitTextReveal {
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    @keyframes floatPetal {
-      0% { transform: translate(0, 0) rotate(0deg); opacity: 0.8; }
-      25% { transform: translate(10px, -20px) rotate(15deg); opacity: 1; }
-      50% { transform: translate(0, -40px) rotate(0deg); opacity: 0.8; }
-      75% { transform: translate(-10px, -20px) rotate(-15deg); opacity: 1; }
-      100% { transform: translate(0, 0) rotate(0deg); opacity: 0.8; }
-    }
-
-    @keyframes floatLeaf {
-      0% { transform: translate(0, 0) rotate(45deg); opacity: 0.7; }
-      50% { transform: translate(-15px, -30px) rotate(60deg); opacity: 1; }
-      100% { transform: translate(0, 0) rotate(45deg); opacity: 0.7; }
-    }
-
-    @keyframes floatBubble {
-      0% { transform: translateY(0) translateX(0); opacity: 0.6; }
-      50% { transform: translateY(-50px) translateX(20px); opacity: 0.9; }
-      100% { transform: translateY(0) translateX(0); opacity: 0.6; }
-    }
-
-    .floating-petal, .floating-leaf, .floating-bubble {
-      position: absolute;
-      background-color: rgba(255, 192, 203, 0.6);
-      border-radius: 50%;
-      animation-name: floatPetal;
-      animation-timing-function: ease-in-out;
-      animation-iteration-count: infinite;
-      animation-direction: alternate;
-    }
-
-    .floating-leaf { background-color: rgba(144, 238, 144, 0.6); border-radius: 0 50% 50% 50%; transform: rotate(45deg); animation-name: floatLeaf; }
-    .floating-bubble { background-color: rgba(173, 216, 230, 0.5); border-radius: 50%; border: 1px solid rgba(255, 255, 255, 0.7); animation-name: floatBubble; }
-
-    .reveal-on-scroll {
-      transition: transform 1s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 1s ease-out;
-      opacity: 0;
-      transform: translateY(50px);
-    }
-
-    .reveal-on-scroll.is-visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    /* Dark Theme */
-    body.dark-theme {
-      --text-color: #f0f0f0;
-      --background-color: #222;
-      --header-bg: #333;
-      --footer-bg: #1a1a1a;
-      --footer-text: #bbb;
-      --card-bg: #444;
-      --card-shadow: 0 5px 15px rgba(255, 255, 255, 0.05);
-      --section-bg-light: #2a2a2a;
-      --section-bg-medium: #3a3a3a;
-    }
-
-    body.dark-theme .logo {
-      color: var(--secondary-color);
-    }
-
-    body.dark-theme .main-nav a {
-      color: #bbb;
-    }
-
-    body.dark-theme .main-nav a:hover,
-    body.dark-theme .main-nav a.active {
-      color: var(--secondary-color);
-    }
-
-    body.dark-theme .yoga-section h2,
-    body.dark-theme .workout-progress-section h2,
-    body.dark-theme .pose-of-the-day h2 {
-        color: var(--secondary-color);
-    }
-
-    body.dark-theme .yoga-category {
-        background-color: #3a3a3a;
-        box-shadow: 0 5px 15px rgba(255, 255, 255, 0.05);
-    }
-
-    body.dark-theme .yoga-category h3 {
-        color: var(--primary-color);
-    }
-
-    body.dark-theme .yoga-card p {
-        color: #ccc;
-    }
-
-    body.dark-theme .difficulty-indicator.beginner { background-color: #689f38; }
-    body.dark-theme .difficulty-indicator.intermediate { background-color: #ffb300; }
-    body.dark-theme .difficulty-indicator.advanced { background-color: #d81b60; }
-
-
-    body.dark-theme .video-thumbnail {
-        background-color: #555;
-        color: #aaa;
-    }
-
-    body.dark-theme .breathing-guide {
-        background: linear-gradient(135deg, #1e3a47 0%, #2f5f7c 100%);
-    }
-
-    body.dark-theme .breathing-guide h3 {
-        color: #89cff0;
-    }
-
-    body.dark-theme .breath-circle-container {
-        background-color: rgba(0, 0, 0, 0.3);
-        box-shadow: 0 0 30px rgba(255, 255, 255, 0.05);
-    }
-
-    body.dark-theme .breath-circle {
-        background-color: var(--secondary-color);
-        box-shadow: 0 0 20px rgba(174, 214, 238, 0.6);
-    }
-
-    body.dark-theme .inhale-exhale {
-        color: #ccc;
-    }
-
-    body.dark-theme .chart-wrapper {
-        background-color: #3a3a3a;
-        box-shadow: 0 5px 15px rgba(255, 255, 255, 0.05);
-    }
-
-    body.dark-theme .chart-bar {
-        background-color: var(--primary-color);
-    }
-
-    body.dark-theme .chart-bar-value {
-        color: #333;
-    }
-
-    body.dark-theme .chart-legend {
-        color: #bbb;
-    }
-
-    body.dark-theme .pose-card {
-        background-color: #3a3a3a;
-        box-shadow: 0 5px 15px rgba(255, 255, 255, 0.05);
-    }
-
-    body.dark-theme .pose-card h3 {
-        color: var(--primary-color);
-    }
-
-    body.dark-theme .pose-card p {
-        color: #ccc;
-    }
-
-    body.dark-theme .pose-card img {
-        border-color: var(--primary-color);
-    }
-
-    body.dark-theme .fun-surprise {
-        background-color: #2a2a2a;
-    }
-
-    body.dark-theme .serenity-text {
-        color: var(--secondary-color);
-    }
+}
