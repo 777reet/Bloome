@@ -1,0 +1,1261 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About | Bloome</title>
+
+  <style>
+    /* Basic Styling */
+    :root {
+      --primary-color: #ffb6c1;
+      /* Light Pink */
+      --secondary-color: #aed6ee;
+      /* Light Blue */
+      --accent-color: #ffe082;
+      /* Light Yellow */
+      --text-color: #333;
+      --background-color: #f8f8f8;
+      --header-bg: #fff;
+      --footer-bg: #333;
+      --footer-text: #fff;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      line-height: 1.6;
+      color: var(--text-color);
+      background-color: var(--background-color);
+      overflow-x: hidden;
+      /* Prevent horizontal scroll from animations */
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* Header */
+    .site-header {
+      background-color: var(--header-bg);
+      padding: 15px 0;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .nav-wrapper {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 1.8em;
+      color: var(--primary-color);
+      margin: 0;
+      font-weight: bold;
+      letter-spacing: 2px;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+    }
+
+    .main-nav a {
+      color: var(--text-color);
+      text-decoration: none;
+      margin-left: 25px;
+      font-weight: 500;
+      transition: color 0.3s ease, transform 0.3s ease;
+    }
+
+    .main-nav a:hover,
+    .main-nav a.active {
+      color: var(--primary-color);
+      transform: translateY(-2px);
+    }
+
+    .theme-toggle {
+      font-size: 1.5em;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+
+    .theme-toggle:hover {
+      transform: rotate(20deg);
+    }
+
+    /* Page Hero */
+    .page-hero {
+      background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+      color: #fff;
+      text-align: center;
+      padding: 100px 20px;
+      position: relative;
+      overflow: hidden;
+      /* For floating elements */
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+    }
+
+    .page-hero h2 {
+      font-size: 3.5em;
+      margin-bottom: 15px;
+      font-weight: bold;
+    }
+
+    .page-hero p {
+      font-size: 1.3em;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    /* About Content */
+    .about-content {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      padding: 80px 20px;
+      gap: 40px;
+      justify-content: center;
+    }
+
+    .about-image {
+      flex: 1;
+      min-width: 300px;
+      height: 400px;
+      background-image: url('https://images.unsplash.com/photo-1552083974-bc81ce638410?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w1MDcxMzJ8MHwxfHNlYXJjaHw1fHxtZWRpdGF0aW9uJTIwbmF0dXJlfGVufDB8fHx8MTcwMTk1NzU5MHww&ixlib=rb-4.0.3&q=80&w=1080');
+      /* Example image */
+      background-size: cover;
+      background-position: center;
+      border-radius: 15px;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+      transition: transform 0.6s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+      opacity: 0;
+      /* Start hidden for reveal-on-scroll */
+    }
+
+    .about-text {
+      flex: 2;
+      min-width: 300px;
+      max-width: 700px;
+      font-size: 1.1em;
+      opacity: 0;
+      /* Start hidden for reveal-on-scroll */
+    }
+
+    .about-text h3 {
+      font-size: 2.5em;
+      color: var(--primary-color);
+      margin-bottom: 20px;
+    }
+
+    /* Our Values Section */
+    .our-values {
+      padding: 80px 20px;
+      text-align: center;
+      background-color: #f0f8ff; /* Alice Blue */
+    }
+
+    .our-values h2 {
+      font-size: 2.8em;
+      color: var(--primary-color);
+      margin-bottom: 50px;
+    }
+
+    .values-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 30px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .value-item {
+      background-color: #fff;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      opacity: 0; /* Hidden for reveal */
+      transform: translateY(20px);
+    }
+
+    .value-item:hover {
+      transform: translateY(-10px) scale(1.02);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    }
+
+    .value-item .icon {
+      font-size: 3em;
+      color: var(--secondary-color);
+      margin-bottom: 15px;
+      display: inline-block; /* For animation */
+    }
+
+    .value-item h4 {
+      font-size: 1.5em;
+      color: var(--text-color);
+      margin-bottom: 10px;
+    }
+
+    .value-item p {
+      font-size: 0.95em;
+    }
+
+    /* Community Impact Section */
+    .community-impact {
+      padding: 80px 20px;
+      text-align: center;
+      background: linear-gradient(135deg, var(--secondary-color) 0%, #c3e6ed 100%);
+      color: #fff;
+    }
+
+    .community-impact h2 {
+      font-size: 2.8em;
+      margin-bottom: 50px;
+    }
+
+    .chart-container {
+      max-width: 800px;
+      margin: 0 auto 40px auto;
+      background-color: rgba(255, 255, 255, 0.2);
+      border-radius: 15px;
+      padding: 30px;
+      box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.1);
+      position: relative;
+    }
+
+    .growth-bar-wrapper {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      height: 200px;
+      margin-top: 20px;
+      border-bottom: 2px solid rgba(255, 255, 255, 0.5);
+      padding-bottom: 10px;
+    }
+
+    .growth-bar {
+      width: 18%;
+      background-color: var(--accent-color);
+      border-radius: 5px 5px 0 0;
+      position: relative;
+      transition: height 1.5s ease-out; /* For animated growth */
+      height: 0; /* Start at 0 for animation */
+    }
+
+    .growth-bar-label {
+      position: absolute;
+      bottom: -30px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 0.9em;
+      color: #fff;
+      font-weight: bold;
+    }
+
+    .growth-bar-value {
+      position: absolute;
+      top: -25px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 1em;
+      font-weight: bold;
+      color: var(--text-color); /* Dark text on light bar */
+      background-color: rgba(255, 255, 255, 0.8);
+      padding: 5px 8px;
+      border-radius: 5px;
+      opacity: 0; /* Hidden for animation */
+      transition: opacity 0.5s ease;
+    }
+
+    .growth-bar.animate-grow .growth-bar-value {
+        opacity: 1;
+    }
+
+
+    /* Behind the Bloom Section */
+    .behind-the-bloom {
+      padding: 80px 20px;
+      text-align: center;
+      background-color: var(--background-color);
+    }
+
+    .behind-the-bloom h2 {
+      font-size: 2.8em;
+      color: var(--primary-color);
+      margin-bottom: 50px;
+    }
+
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 30px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .team-member {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      text-align: center;
+      overflow: hidden; /* For image scale */
+      opacity: 0; /* Hidden for reveal */
+      transform: translateY(20px);
+    }
+
+    .team-member:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    }
+
+    .team-member img {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-bottom: 15px;
+      border: 4px solid var(--secondary-color);
+      transition: transform 0.4s ease;
+    }
+
+    .team-member:hover img {
+      transform: scale(1.05) rotate(5deg);
+    }
+
+    .team-member h4 {
+      font-size: 1.4em;
+      color: var(--text-color);
+      margin-bottom: 5px;
+    }
+
+    .team-member p {
+      font-size: 0.9em;
+      color: #666;
+    }
+
+    /* Daily Dose of Joy Section */
+    .daily-joy {
+      padding: 80px 20px;
+      text-align: center;
+      background: linear-gradient(135deg, #e0f7fa 0%, #fffde7 100%); /* Light blue to light yellow */
+      position: relative;
+      overflow: hidden;
+    }
+
+    .daily-joy h2 {
+      font-size: 2.8em;
+      color: var(--primary-color);
+      margin-bottom: 40px;
+    }
+
+    .affirmation-box {
+      background-color: rgba(255, 255, 255, 0.9);
+      border-radius: 20px;
+      padding: 40px;
+      max-width: 600px;
+      margin: 0 auto 30px auto;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      min-height: 120px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55), opacity 0.5s ease;
+      opacity: 0; /* For pop-in effect */
+      transform: scale(0.8);
+      font-size: 1.6em;
+      font-style: italic;
+      color: #555;
+    }
+
+    .affirmation-box.active {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    .generate-affirmation-button {
+      background-color: var(--primary-color);
+      color: #fff;
+      border: none;
+      padding: 18px 35px;
+      font-size: 1.2em;
+      border-radius: 35px;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .generate-affirmation-button:hover {
+      background-color: #ff99ab;
+      transform: translateY(-5px) scale(1.02);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    }
+
+
+    /* Fun Surprise Section */
+    .fun-surprise {
+      text-align: center;
+      padding: 80px 20px;
+      background-color: #e0f7fa;
+      /* Light cyan */
+      position: relative;
+      overflow: hidden;
+    }
+
+    .sparkle-message {
+      background-color: #fff;
+      padding: 25px 40px;
+      border-radius: 50px;
+      display: inline-block;
+      margin-bottom: 30px;
+      font-size: 1.4em;
+      font-weight: bold;
+      color: var(--primary-color);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      opacity: 0;
+      /* Hidden initially, revealed by JS */
+      transform: translateY(20px) scale(0.8);
+      /* For pop-up effect */
+    }
+
+    .floating-lotus {
+      width: 150px;
+      height: 150px;
+      background-image: url('https://images.unsplash.com/photo-1594917415133-c793d5f8c6d7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w1MDcxMzJ8MHwxfHNlYXJjaHwxfHxsb3R1cyUyMGZsb3dlcnxlbnwwfHx8fDE3MDE5NTc1OTF8MA&ixlib=rb-4.0.3&q=80&w=1080');
+      /* Example lotus image */
+      background-size: contain;
+      background-repeat: no-repeat;
+      margin: 20px auto;
+      transition: transform 0.5s ease-in-out;
+      cursor: pointer;
+    }
+
+    .meditation-button {
+      background-color: var(--secondary-color);
+      color: #fff;
+      border: none;
+      padding: 15px 30px;
+      font-size: 1.1em;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+      margin-top: 20px;
+    }
+
+    .meditation-button:hover {
+      background-color: #89cff0;
+      /* Slightly darker blue */
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Footer */
+    .site-footer {
+      background-color: var(--footer-bg);
+      color: var(--footer-text);
+      text-align: center;
+      padding: 30px 20px;
+      font-size: 0.9em;
+    }
+
+    .site-footer p {
+      margin-bottom: 15px;
+    }
+
+    .social-links a {
+      color: var(--footer-text);
+      text-decoration: none;
+      margin: 0 10px;
+      transition: color 0.3s ease, transform 0.3s ease;
+    }
+
+    .social-links a:hover {
+      color: var(--primary-color);
+      transform: translateY(-2px);
+    }
+
+    /* --- Animations CSS --- */
+
+    /* Hero Section Text Animations */
+    @keyframes fadeInSlideUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .animate-text-fade {
+      animation: fadeInSlideUp 1s ease-out forwards;
+      opacity: 0;
+      /* Start hidden */
+      animation-delay: 0.5s;
+    }
+
+    /* Text Split Animation (for "Our Story") */
+    .animate-text-split span {
+      display: inline-block;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: splitTextReveal 0.8s forwards;
+      animation-timing-function: cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+
+    @keyframes splitTextReveal {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Floating Elements Container (for petals, leaves, bubbles) */
+    .floating-elements-container {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      /* Allows clicks to pass through */
+      overflow: hidden;
+    }
+
+    @keyframes floatPetal {
+      0% {
+        transform: translate(0, 0) rotate(0deg);
+        opacity: 0.8;
+      }
+
+      25% {
+        transform: translate(10px, -20px) rotate(15deg);
+        opacity: 1;
+      }
+
+      50% {
+        transform: translate(0, -40px) rotate(0deg);
+        opacity: 0.8;
+      }
+
+      75% {
+        transform: translate(-10px, -20px) rotate(-15deg);
+        opacity: 1;
+      }
+
+      100% {
+        transform: translate(0, 0) rotate(0deg);
+        opacity: 0.8;
+      }
+    }
+
+    .floating-petal,
+    .floating-leaf,
+    .floating-bubble {
+      position: absolute;
+      background-color: rgba(255, 192, 203, 0.6);
+      /* Default petal color */
+      border-radius: 50%;
+      animation-name: floatPetal;
+      animation-timing-function: ease-in-out;
+      animation-iteration-count: infinite;
+      animation-direction: alternate;
+      /* Makes them float up and down smoothly */
+    }
+
+    .floating-leaf {
+      background-color: rgba(144, 238, 144, 0.6);
+      /* Light green */
+      border-radius: 0 50% 50% 50%;
+      /* Leaf shape approximation */
+      transform: rotate(45deg);
+      /* To make it look more like a leaf */
+      animation-name: floatLeaf;
+    }
+
+    @keyframes floatLeaf {
+      0% {
+        transform: translate(0, 0) rotate(45deg);
+        opacity: 0.7;
+      }
+
+      50% {
+        transform: translate(-15px, -30px) rotate(60deg);
+        opacity: 1;
+      }
+
+      100% {
+        transform: translate(0, 0) rotate(45deg);
+        opacity: 0.7;
+      }
+    }
+
+    .floating-bubble {
+      background-color: rgba(173, 216, 230, 0.5);
+      /* Light blue, semi-transparent */
+      border-radius: 50%;
+      border: 1px solid rgba(255, 255, 255, 0.7);
+      animation-name: floatBubble;
+    }
+
+    @keyframes floatBubble {
+      0% {
+        transform: translateY(0) translateX(0);
+        opacity: 0.6;
+      }
+
+      50% {
+        transform: translateY(-50px) translateX(20px);
+        opacity: 0.9;
+      }
+
+      100% {
+        transform: translateY(0) translateX(0);
+        opacity: 0.6;
+      }
+    }
+
+
+    /* General Reveal on Scroll */
+    .reveal-on-scroll {
+      transition: transform 1s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 1s ease-out;
+      opacity: 0;
+      transform: translateY(50px);
+    }
+
+    .reveal-on-scroll.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .about-image.is-visible {
+      transform: scale(1);
+    }
+
+    /* Wavy Text Effect */
+    @keyframes wave {
+      0%,
+      100% {
+        transform: translateY(0);
+      }
+
+      25% {
+        transform: translateY(-5px);
+      }
+
+      50% {
+        transform: translateY(0);
+      }
+
+      75% {
+        transform: translateY(5px);
+      }
+    }
+
+    .wavy-text span {
+      display: inline-block;
+      animation: wave 1.5s ease-in-out infinite;
+      animation-delay: var(--delay);
+      /* Set by JS */
+    }
+
+    /* Value Item Icon Bounce */
+    @keyframes iconBounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+    .value-item.is-visible .icon {
+        animation: iconBounce 0.8s ease-out forwards;
+    }
+
+
+    /* Fun Surprise Section Pop-up Message */
+    @keyframes popUp {
+      from {
+        transform: scale(0.8) translateY(20px);
+        opacity: 0;
+      }
+
+      to {
+        transform: scale(1) translateY(0);
+        opacity: 1;
+      }
+    }
+
+    .sparkle-message.is-visible {
+      animation: popUp 1s cubic-bezier(0.68, -0.55, 0.27, 1.55) forwards;
+    }
+
+    /* Heartbeat Lotus */
+    @keyframes heartbeat {
+      0% {
+        transform: scale(1);
+      }
+
+      25% {
+        transform: scale(1.05);
+      }
+
+      50% {
+        transform: scale(1);
+      }
+
+      75% {
+        transform: scale(0.95);
+      }
+
+      100% {
+        transform: scale(1);
+      }
+    }
+
+    .floating-lotus.heartbeat {
+      animation: heartbeat 2s ease-in-out infinite;
+    }
+
+    /* Glow on Hover Button */
+    @keyframes glowing {
+      0% {
+        box-shadow: 0 0 5px rgba(100, 200, 255, 0.5);
+      }
+
+      50% {
+        box-shadow: 0 0 20px rgba(100, 200, 255, 1);
+      }
+
+      100% {
+        box-shadow: 0 0 5px rgba(100, 200, 255, 0.5);
+      }
+    }
+
+    .meditation-button.glow-on-hover:hover {
+      animation: glowing 1.5s infinite;
+    }
+
+    /* Social Icon Bounce */
+    @keyframes socialBounce {
+      0%,
+      100% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(-5px);
+      }
+    }
+
+    .social-links a:hover {
+      animation: socialBounce 0.5s ease-in-out;
+    }
+
+    /* General fun elements */
+    .sparkle-emoji,
+    .flower-emoji {
+      display: inline-block;
+      animation: sparkle 1s infinite alternate;
+    }
+
+    @keyframes sparkle {
+      0% {
+        transform: scale(1) rotate(0deg);
+        opacity: 1;
+      }
+
+      50% {
+        transform: scale(1.2) rotate(10deg);
+        opacity: 0.8;
+      }
+
+      100% {
+        transform: scale(1) rotate(0deg);
+        opacity: 1;
+      }
+    }
+
+    /* Confetti Burst */
+    .confetti {
+      position: fixed;
+      width: 10px;
+      height: 10px;
+      background-color: var(--primary-color);
+      border-radius: 50%;
+      opacity: 0;
+      animation: confetti-fall 2s forwards;
+      pointer-events: none;
+      z-index: 2000;
+    }
+
+    @keyframes confetti-fall {
+      0% {
+        transform: translate(var(--x), var(--y)) rotate(0deg) scale(1);
+        opacity: 1;
+      }
+
+      100% {
+        transform: translate(var(--x-end), var(--y-end)) rotate(720deg) scale(0);
+        opacity: 0;
+      }
+    }
+
+    /* Dark Theme */
+    body.dark-theme {
+      --text-color: #f0f0f0;
+      --background-color: #222;
+      --header-bg: #333;
+      --footer-bg: #1a1a1a;
+      --footer-text: #bbb;
+    }
+
+    body.dark-theme .logo {
+      color: var(--secondary-color);
+    }
+
+    body.dark-theme .main-nav a {
+      color: #bbb;
+    }
+
+    body.dark-theme .main-nav a:hover,
+    body.dark-theme .main-nav a.active {
+      color: var(--secondary-color);
+    }
+
+    body.dark-theme .about-text h3 {
+      color: var(--secondary-color);
+    }
+
+    body.dark-theme .sparkle-message {
+      background-color: #333;
+      color: var(--secondary-color);
+      box-shadow: 0 5px 15px rgba(255, 255, 255, 0.1);
+    }
+
+    body.dark-theme .our-values {
+        background-color: #2a2a2a;
+    }
+
+    body.dark-theme .value-item {
+        background-color: #444;
+        box-shadow: 0 5px 15px rgba(255, 255, 255, 0.05);
+    }
+
+    body.dark-theme .value-item h4 {
+        color: #f0f0f0;
+    }
+
+    body.dark-theme .value-item p {
+        color: #ccc;
+    }
+
+    body.dark-theme .community-impact {
+        background: linear-gradient(135deg, #1f4f6c 0%, #3a708a 100%);
+    }
+
+    body.dark-theme .chart-container {
+        background-color: rgba(0, 0, 0, 0.2);
+        box-shadow: inset 0 0 15px rgba(255, 255, 255, 0.1);
+    }
+
+    body.dark-theme .growth-bar {
+        background-color: #ffcc5c; /* Dark mode accent */
+    }
+
+    body.dark-theme .growth-bar-value {
+        background-color: rgba(0, 0, 0, 0.8);
+        color: #fff;
+    }
+
+    body.dark-theme .behind-the-bloom {
+        background-color: #222;
+    }
+
+    body.dark-theme .team-member {
+        background-color: #444;
+        box-shadow: 0 5px 15px rgba(255, 255, 255, 0.05);
+    }
+
+    body.dark-theme .team-member h4 {
+        color: #f0f0f0;
+    }
+
+    body.dark-theme .team-member p {
+        color: #ccc;
+    }
+
+    body.dark-theme .team-member img {
+        border-color: #72a9b7; /* Dark mode secondary */
+    }
+
+    body.dark-theme .daily-joy {
+        background: linear-gradient(135deg, #2a2a2a 0%, #3a3a3a 100%);
+    }
+
+    body.dark-theme .affirmation-box {
+        background-color: rgba(50, 50, 50, 0.9);
+        box-shadow: 0 10px 30px rgba(255, 255, 255, 0.1);
+        color: #ccc;
+    }
+
+  </style>
+</head>
+
+<body>
+  <header class="site-header">
+    <div class="container nav-wrapper">
+      <h1 class="logo">BLOOMÉ</h1>
+      <nav class="main-nav">
+        <a href="index.html">Home</a>
+        <a href="about.html" class="active">About</a>
+        <a href="products.html">Products</a>
+        <a href="yoga.html">Workouts</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+      <div class="theme-toggle">🌙</div>
+      </div>
+  </header>
+
+  <section class="page-hero fade-slide">
+    <div class="hero-content">
+      <h2 class="animate-text-split">Our Story</h2>
+      <p class="animate-text-fade">Rooted in self-love, BLOOMÉ is a sanctuary for your wellness journey. <span
+          class="sparkle-emoji">✨</span></p>
+    </div>
+    <div class="floating-elements-container">
+      </div>
+  </section>
+
+  <section class="about-content">
+    <div class="about-image reveal-on-scroll">
+      </div>
+    <div class="about-text reveal-on-scroll">
+      <h3 class="wavy-text">We believe in beauty that begins within.</h3>
+      <p>
+        BLOOMÉ began as a seed of self-care and blossomed into a space where
+        every soul finds its rhythm. Our team of yogis, nutritionists,
+        and dreamers build daily rituals to help you grow, glow, and thrive.
+      </p>
+      <p>
+        Through curated workouts, nourishing plans, and affirmations,
+        we guide you toward balance, presence, and power. This isn't just a
+        wellness brand—it's a reminder that your well-being is worthy.
+      </p>
+    </div>
+  </section>
+
+  <section class="our-values">
+    <h2>Our Core Values</h2>
+    <div class="values-grid">
+      <div class="value-item reveal-on-scroll">
+        <div class="icon">💖</div>
+        <h4>Self-Love</h4>
+        <p>Embracing yourself, flaws and all, is the first step to holistic well-being.</p>
+      </div>
+      <div class="value-item reveal-on-scroll" style="transition-delay: 0.1s;">
+        <div class="icon">🌿</div>
+        <h4>Growth</h4>
+        <p>We champion continuous personal development and mindful living.</p>
+      </div>
+      <div class="value-item reveal-on-scroll" style="transition-delay: 0.2s;">
+        <div class="icon">✨</div>
+        <h4>Radiance</h4>
+        <p>Unlocking your inner glow through nourishing practices and positive energy.</p>
+      </div>
+      <div class="value-item reveal-on-scroll" style="transition-delay: 0.3s;">
+        <div class="icon">🧘‍♀️</div>
+        <h4>Harmony</h4>
+        <p>Finding balance in mind, body, and spirit for a peaceful existence.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="community-impact">
+    <h2>Our Community Impact</h2>
+    <p class="reveal-on-scroll">See how BLOOMÉ has helped our community blossom over the past year!</p>
+    <div class="chart-container reveal-on-scroll">
+      <h3>Wellness Milestones Achieved</h3>
+      <div class="growth-bar-wrapper">
+        <div class="growth-bar" data-value="85" style="height: 0;">
+          <span class="growth-bar-value"></span>
+          <span class="growth-bar-label">Members</span>
+        </div>
+        <div class="growth-bar" data-value="70" style="height: 0;">
+          <span class="growth-bar-value"></span>
+          <span class="growth-bar-label">Workouts</span>
+        </div>
+        <div class="growth-bar" data-value="90" style="height: 0;">
+          <span class="growth-bar-value"></span>
+          <span class="growth-bar-label">Affirmations</span>
+        </div>
+        <div class="growth-bar" data-value="60" style="height: 0;">
+          <span class="growth-bar-value"></span>
+          <span class="growth-bar-label">Mindfulness</span>
+        </div>
+      </div>
+      <p class="chart-caption reveal-on-scroll">These numbers represent our collective growth in percentages!</p>
+    </div>
+  </section>
+
+  <section class="behind-the-bloom">
+    <h2>Behind the Bloom: Our Team</h2>
+    <p class="reveal-on-scroll">Meet the passionate hearts dedicated to your wellness journey.</p>
+    <div class="team-grid">
+      <div class="team-member reveal-on-scroll">
+        <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w1MDcxMzJ8MHwxfHNlYXJjaHwzfHxlbXBsb3llZSUyMHBvcnRyYWl0fGVufDB8fHx8MTcwMTk1NzU5MHww&ixlib=rb-4.0.3&q=80&w=1080" alt="Team Member 1">
+        <h4>Aisha Sharma</h4>
+        <p>Founder & Lead Yogi</p>
+        <p>Aisha envisioned BLOOMÉ as a safe haven for self-discovery.</p>
+      </div>
+      <div class="team-member reveal-on-scroll" style="transition-delay: 0.1s;">
+        <img src="https://images.unsplash.com/photo-1531746020795-81be2227094d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w1MDcxMzJ8MHwxfHNlYXJjaHw2fHxlbXBsb3llZSUyMHBvcnRyYWl0fGVufDB8fHx8MTcwMTk1NzU5MHww&ixlib=rb-4.0.3&q=80&w=1080" alt="Team Member 2">
+        <h4>Priya Singh</h4>
+        <p>Nutritionist & Wellness Coach</p>
+        <p>Priya crafts nourishing plans to fuel your body and soul.</p>
+      </div>
+      <div class="team-member reveal-on-scroll" style="transition-delay: 0.2s;">
+        <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w1MDcxMzJ8MHwxfHNlYXJjaHw3fHxlbXBsb3llZSUyMHBvcnRyYWl0fGVufDB8fHx8MTcwMTk1NzU5MHww&ixlib=rb-4.0.3&q=80&w=1080" alt="Team Member 3">
+        <h4>Rahul Verma</h4>
+        <p>Mindfulness Guide & Content Creator</p>
+        <p>Rahul weaves wisdom into words, guiding you to inner peace.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="daily-joy">
+    <h2>Your Daily Dose of Joy!</h2>
+    <p class="reveal-on-scroll">Need a quick pick-me-up? Generate a positive affirmation!</p>
+    <div class="affirmation-box active">
+      "You are capable of amazing things."
+    </div>
+    <button class="generate-affirmation-button">Generate New Affirmation</button>
+  </section>
+
+  <section class="fun-surprise">
+    <div class="sparkle-message">
+      <p>✨ You just unlocked a breath of calm ✨</p>
+    </div>
+    <div class="floating-lotus heartbeat" title="Click me for a surprise!"></div>
+    <button class="meditation-button glow-on-hover">Listen to a Calming Sound</button>
+    <audio id="calm-audio" src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"
+      preload="auto"></audio>
+  </section>
+
+  <footer class="site-footer">
+    <p>&copy; 2025 BLOOMÉ. You are already blooming. <span class="flower-emoji">🌷</span></p>
+    <div class="social-links">
+      <a href="#">Instagram</a>
+      <a href="#">Facebook</a>
+      <a href="#">X</a>
+    </div>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // --- Theme Toggle ---
+      const themeToggle = document.querySelector('.theme-toggle');
+      const body = document.body;
+
+      themeToggle.addEventListener('click', () => {
+        body.classList.toggle('dark-theme');
+        themeToggle.textContent = body.classList.contains('dark-theme') ? '☀️' : '🌙';
+      });
+
+      // --- Hero Section Text Split Animation ---
+      const heroTitle = document.querySelector('.animate-text-split');
+      if (heroTitle) {
+        heroTitle.innerHTML = heroTitle.textContent
+          .split('')
+          .map((char, index) => `<span style="animation-delay: ${0.05 * index}s;">${char}</span>`)
+          .join('');
+      }
+
+      // --- Floating Elements in Hero Section ---
+      const elementsContainer = document.querySelector('.floating-elements-container');
+      const elementTypes = ['petal', 'leaf', 'bubble'];
+      const numberOfElements = 25; // More elements for more fun!
+
+      function createFloatingElement() {
+        const type = elementTypes[Math.floor(Math.random() * elementTypes.length)];
+        const element = document.createElement('div');
+        element.classList.add(`floating-${type}`);
+        const size = Math.random() * 15 + 10; // Size 10-25px
+        element.style.width = `${size}px`;
+        element.style.height = `${size}px`;
+        element.style.left = `${Math.random() * 100}%`; // Random horizontal position
+        element.style.top = `${Math.random() * 100}%`; // Random vertical position initially
+        element.style.animationDuration = `${Math.random() * 5 + 5}s`; // Animation duration 5-10s
+        element.style.animationDelay = `${Math.random() * 3}s`; // Staggered start
+
+        elementsContainer.appendChild(element);
+
+        // Remove element after it's out of view (or reset its position)
+        element.addEventListener('animationiteration', () => {
+          element.style.left = `${Math.random() * 100}%`;
+          element.style.top = `${Math.random() * 100}%`;
+        });
+      }
+
+      for (let i = 0; i < numberOfElements; i++) {
+        createFloatingElement();
+      }
+
+      // --- General Reveal on Scroll (for multiple sections) ---
+      const revealElements = document.querySelectorAll('.reveal-on-scroll');
+
+      const revealObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            // Specific animations for certain elements when they become visible
+            if (entry.target.classList.contains('sparkle-message')) {
+                entry.target.classList.add('is-visible'); // Trigger specific pop-up animation
+            }
+            if (entry.target.classList.contains('value-item')) {
+                const icon = entry.target.querySelector('.icon');
+                if (icon) icon.style.animationPlayState = 'running'; // Start icon bounce
+            }
+            if (entry.target.classList.contains('chart-container')) {
+                animateGrowthBars();
+            }
+            observer.unobserve(entry.target); // Stop observing once visible
+          }
+        });
+      }, {
+        root: null,
+        rootMargin: '0px',
+        threshold: 0.3 // Element visible when 30% in view
+      });
+
+      revealElements.forEach(el => {
+        revealObserver.observe(el);
+      });
+
+      // --- Wavy Text Effect ---
+      const wavyTextElement = document.querySelector('.wavy-text');
+      if (wavyTextElement) {
+        wavyTextElement.innerHTML = wavyTextElement.textContent
+          .split('')
+          .map((char, index) => `<span style="--delay: ${index * 0.05}s;">${char}</span>`)
+          .join('');
+      }
+
+      // --- Community Impact Growth Chart Animation ---
+      const growthBars = document.querySelectorAll('.growth-bar');
+
+      function animateGrowthBars() {
+        growthBars.forEach((bar, index) => {
+          const value = bar.dataset.value;
+          const height = (value / 100) * 100; // Calculate height as percentage of max 100px (or adjust as needed)
+          setTimeout(() => {
+            bar.style.height = `${height}%`;
+            bar.querySelector('.growth-bar-value').textContent = `${value}%`;
+            bar.classList.add('animate-grow'); // Add class to show value
+          }, 300 * index); // Staggered animation
+        });
+      }
+
+      // The animation trigger is now part of the general revealObserver
+
+      // --- Floating Lotus Click Surprise (Confetti) ---
+      const floatingLotus = document.querySelector('.floating-lotus');
+      if (floatingLotus) {
+        floatingLotus.addEventListener('click', (e) => {
+          // Add temporary bounce effect
+          floatingLotus.style.transform = 'scale(1.1)';
+          setTimeout(() => {
+            floatingLotus.style.transform = 'scale(1)';
+          }, 300);
+
+          // Confetti burst!
+          const createConfetti = (x, y) => {
+            for (let i = 0; i < 30; i++) {
+              const confetti = document.createElement('div');
+              confetti.classList.add('confetti');
+              confetti.style.left = `${x}px`;
+              confetti.style.top = `${y}px`;
+              const angle = Math.random() * Math.PI * 2;
+              const distance = Math.random() * 100 + 50;
+              const xEnd = x + Math.cos(angle) * distance;
+              const yEnd = y + Math.sin(angle) * distance;
+              confetti.style.setProperty('--x', '0px');
+              confetti.style.setProperty('--y', '0px');
+              confetti.style.setProperty('--x-end', `${xEnd - x}px`);
+              confetti.style.setProperty('--y-end', `${yEnd - y}px`);
+              confetti.style.backgroundColor = `hsl(${Math.random() * 360}, 70%, 70%)`;
+              document.body.appendChild(confetti);
+
+              confetti.addEventListener('animationend', () => {
+                confetti.remove();
+              });
+            }
+          };
+
+          createConfetti(e.clientX, e.clientY);
+        });
+      }
+
+      // --- Meditation Button & Sound ---
+      const meditationButton = document.querySelector('.meditation-button');
+      const calmAudio = document.getElementById('calm-audio');
+      let isPlaying = false;
+
+      if (meditationButton && calmAudio) {
+        meditationButton.addEventListener('click', () => {
+          if (isPlaying) {
+            calmAudio.pause();
+            meditationButton.textContent = 'Listen to a Calming Sound';
+            isPlaying = false;
+          } else {
+            calmAudio.play();
+            meditationButton.textContent = 'Pause Sound';
+            isPlaying = true;
+          }
+        });
+
+        calmAudio.addEventListener('ended', () => {
+          meditationButton.textContent = 'Listen to a Calming Sound';
+          isPlaying = false;
+        });
+      }
+
+      // --- Daily Dose of Joy Affirmation Generator ---
+      const affirmations = [
+        "You are capable of amazing things.",
+        "Your potential is limitless.",
+        "Embrace your unique journey.",
+        "Every day is a new beginning.",
+        "You are worthy of love and joy.",
+        "Believe in yourself, you've got this!",
+        "Your strength is within you.",
+        "Find beauty in every moment.",
+        "You are growing and glowing.",
+        "Today is an opportunity to bloom."
+      ];
+      const affirmationBox = document.querySelector('.affirmation-box');
+      const generateButton = document.querySelector('.generate-affirmation-button');
+
+      if (generateButton && affirmationBox) {
+        generateButton.addEventListener('click', () => {
+          affirmationBox.classList.remove('active'); // Start fade out
+          setTimeout(() => {
+            const randomIndex = Math.floor(Math.random() * affirmations.length);
+            affirmationBox.textContent = affirmations[randomIndex];
+            affirmationBox.classList.add('active'); // Fade in new affirmation
+          }, 500); // Wait for fade out to complete
+        });
+      }
+
+    });
+  </script>
+</body>
+
+</html>
