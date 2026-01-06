@@ -755,6 +755,12 @@ body {
     cursor: pointer;
 }
 
+.logo-link {
+    text-decoration: none;
+    color: inherit;
+    display: inline-block;
+}
+
 .logo::after {
     content: '✨';
     position: absolute;

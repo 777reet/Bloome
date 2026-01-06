@@ -190,6 +190,12 @@ body {
     position: relative;
 }
 
+.logo-link {
+    text-decoration: none;
+    color: inherit;
+    display: inline-block;
+}
+
 .logo::after {
     content: '✨';
     position: absolute;
@@ -1022,7 +1028,7 @@ body {
 }
 
 .footer-section .social-links a:hover {
-    transform: translateY(-3px);
+    transform: translateY(-3px) translateX(0);
     box-shadow: 0 8px 20px rgba(255, 107, 157, 0.4);
 }
 
