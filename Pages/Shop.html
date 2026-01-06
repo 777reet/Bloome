@@ -1,87 +1,214 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Products | Bloome</title>
-  <link rel="stylesheet" href="styles/base.css">
-  <link rel="stylesheet" href="styles/layout.css">
-  <link rel="stylesheet" href="styles/components.css">
-  <link rel="stylesheet" href="styles/themes.css">
-  <link rel="stylesheet" href="styles/bloome.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Products | BLOOMÉ - Shop Our Wellness Collection</title>
+    <meta name="description" content="Discover BLOOMÉ's curated collection of wellness products. From rose glow serums to lavender tea blends, nurture your soul with our botanical essentials.">
+    <meta name="keywords" content="wellness products, natural skincare, herbal tea, crystal roller, clay mask, self-care essentials">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Dancing+Script:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="../Css/Shop.css">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="../favicon.ico">
 </head>
-
 <body>
-  <header class="site-header">
-    <div class="container nav-wrapper">
-      <h1 class="logo">BLOOMÉ</h1>
-      <nav class="main-nav">
-        <a href="index.html">Home</a>
-        <a href="about.html">About</a>
-        <a href="products.html" class="active">Products</a>
-        <a href="yoga.html">Workouts</a>
-        <a href="contact.html">Contact</a>
-      </nav>
-    </div>
-  </header>
-
-  <section class="page-hero fade-slide">
-    <h2>Our Blooming Collection</h2>
-    <p>Indulge in essentials designed to nurture your soul ✨</p>
-  </section>
-
-  <section class="product-grid">
-    <div class="product-card glow-fade">
-      <div class="product-image">Image 1</div>
-      <h3>Rose Glow Serum</h3>
-      <p>Infused with botanical love for radiant skin.</p>
-      <span class="price">₹499</span>
-      <button class="btn add-to-cart">Add to Cart</button>
+    <!-- Loading Screen -->
+    <div class="loading" id="loading">
+        <div class="loading-spinner"></div>
     </div>
 
-    <div class="product-card glow-fade">
-      <div class="product-image">Image 2</div>
-      <h3>Lavender Tea Blend</h3>
-      <p>Soothing blend to calm your evenings.</p>
-      <span class="price">₹299</span>
-      <button class="btn add-to-cart">Add to Cart</button>
+    <!-- Floating Background Elements -->
+    <div class="floating-elements">
+        <div class="floating-shape"></div>
+        <div class="floating-shape"></div>
+        <div class="floating-shape"></div>
+    </div>
+    
+    <!-- Header -->
+    <header class="site-header">
+        <div class="nav-wrapper">
+            <a href="Index.html" class="logo-link" aria-label="BLOOMÉ Home">
+                <h1 class="logo">BLOOMÉ</h1>
+            </a>
+            <button class="mobile-menu-toggle" id="mobile-menu-toggle" aria-label="Toggle Menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <nav class="main-nav" id="main-nav">
+                <a href="Index.html">Home</a>
+                <a href="About.html">About</a>
+                <a href="Shop.html" class="active">Products</a>
+                <a href="Gym.html">Workouts</a>
+                <a href="Contact.html">Contact</a>
+                <a href="Index.html#newsletter" class="nav-cta">Join Community</a>
+            </nav>
+            <button class="theme-toggle" id="theme-toggle" aria-label="Toggle Theme">🌙</button>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="page-hero fade-slide" id="home">
+        <div class="hero-content">
+            <h2 class="animate-text-split">Our Blooming Collection</h2>
+            <p class="animate-text-fade">Indulge in essentials designed to nurture your soul <span class="sparkle-emoji">✨</span></p>
+        </div>
+        <div class="floating-elements-container"></div>
+    </section>
+
+    <!-- Products Section -->
+    <section class="products-section">
+        <div class="container">
+            <div class="section-header fade-in">
+                <h2 class="section-title">Wellness Essentials</h2>
+                <p class="section-subtitle">Curated with love for your self-care journey</p>
+            </div>
+            <div class="product-grid">
+                <div class="product-card fade-in">
+                    <div class="product-image">
+                        <img src="https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080" alt="Rose Glow Serum" loading="lazy">
+                        <div class="product-badge">New</div>
+                    </div>
+                    <div class="product-info">
+                        <h3>Rose Glow Serum</h3>
+                        <p>Infused with botanical love for radiant skin.</p>
+                        <div class="product-tags">
+                            <span class="tag">🌹 Natural</span>
+                            <span class="tag">✨ Glow</span>
+                        </div>
+                        <div class="product-footer">
+                            <span class="price">₹499</span>
+                            <button class="btn add-to-cart" data-product="Rose Glow Serum">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card fade-in" style="animation-delay: 0.2s;">
+                    <div class="product-image">
+                        <img src="https://images.unsplash.com/photo-1544787219-7f47ccb76574?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080" alt="Lavender Tea Blend" loading="lazy">
+                        <div class="product-badge bestseller">Bestseller</div>
+                    </div>
+                    <div class="product-info">
+                        <h3>Lavender Tea Blend</h3>
+                        <p>Soothing blend to calm your evenings.</p>
+                        <div class="product-tags">
+                            <span class="tag">🍵 Herbal</span>
+                            <span class="tag">😌 Calm</span>
+                        </div>
+                        <div class="product-footer">
+                            <span class="price">₹299</span>
+                            <button class="btn add-to-cart" data-product="Lavender Tea Blend">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card fade-in" style="animation-delay: 0.4s;">
+                    <div class="product-image">
+                        <img src="https://images.unsplash.com/photo-1515377905703-c4788e51af15?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080" alt="Amethyst Roller" loading="lazy">
+                    </div>
+                    <div class="product-info">
+                        <h3>Amethyst Roller</h3>
+                        <p>Crystal-cool skin massage for daily renewal.</p>
+                        <div class="product-tags">
+                            <span class="tag">💎 Crystal</span>
+                            <span class="tag">💆‍♀️ Massage</span>
+                        </div>
+                        <div class="product-footer">
+                            <span class="price">₹399</span>
+                            <button class="btn add-to-cart" data-product="Amethyst Roller">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card fade-in" style="animation-delay: 0.6s;">
+                    <div class="product-image">
+                        <img src="https://images.unsplash.com/photo-1556228578-0d85b1a4d571?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080" alt="Blush Clay Mask" loading="lazy">
+                    </div>
+                    <div class="product-info">
+                        <h3>Blush Clay Mask</h3>
+                        <p>Detoxify and glow with every application.</p>
+                        <div class="product-tags">
+                            <span class="tag">🧖‍♀️ Detox</span>
+                            <span class="tag">✨ Glow</span>
+                        </div>
+                        <div class="product-footer">
+                            <span class="price">₹349</span>
+                            <button class="btn add-to-cart" data-product="Blush Clay Mask">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Cart Summary -->
+    <div class="cart-summary" id="cart-summary">
+        <div class="cart-content">
+            <h3>Shopping Cart <span class="cart-count" id="cart-count">0</span></h3>
+            <div class="cart-items" id="cart-items">
+                <p class="empty-cart">Your cart is empty</p>
+            </div>
+            <div class="cart-footer">
+                <div class="cart-total">
+                    <span>Total:</span>
+                    <span id="cart-total">₹0</span>
+                </div>
+                <button class="btn-checkout" id="checkout-btn">Checkout</button>
+            </div>
+        </div>
     </div>
 
-    <div class="product-card glow-fade">
-      <div class="product-image">Image 3</div>
-      <h3>Amethyst Roller</h3>
-      <p>Crystal-cool skin massage for daily renewal.</p>
-      <span class="price">₹399</span>
-      <button class="btn add-to-cart">Add to Cart</button>
-    </div>
+    <!-- Fun Surprise Section -->
+    <section class="fun-surprise">
+        <div class="container">
+            <p class="confetti-text">You bloom with every click <span class="flower-emoji">🌺</span></p>
+            <div class="petal-rain" id="petal-rain"></div>
+        </div>
+    </section>
 
-    <div class="product-card glow-fade">
-      <div class="product-image">Image 4</div>
-      <h3>Blush Clay Mask</h3>
-      <p>Detoxify and glow with every application.</p>
-      <span class="price">₹349</span>
-      <button class="btn add-to-cart">Add to Cart</button>
-    </div>
-  </section>
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>About BLOOMÉ</h3>
+                <p>BLOOMÉ is dedicated to helping you achieve holistic well-being through personalized and transformative wellness journeys.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <a href="Index.html">Home</a>
+                <a href="About.html">About Us</a>
+                <a href="Shop.html">Products</a>
+                <a href="Gym.html">Workouts</a>
+            </div>
+            <div class="footer-section">
+                <h3>Contact Us</h3>
+                <p>Email: info@bloome.com</p>
+                <p>Phone: +91 98765 43210</p>
+                <p>Address: Mumbai, India</p>
+            </div>
+            <div class="footer-section">
+                <h3>Follow Us</h3>
+                <div class="social-links">
+                    <a href="#" aria-label="Facebook">📘</a>
+                    <a href="#" aria-label="Instagram">📷</a>
+                    <a href="#" aria-label="Twitter">🐦</a>
+                    <a href="#" aria-label="LinkedIn">💼</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 BLOOMÉ. Shop with soul ✨</p>
+        </div>
+    </footer>
 
-  <section class="surprise">
-    <p class="confetti-text">You bloom with every click 🌺</p>
-    <div class="petal-rain"></div>
-  </section>
-
-  <footer class="site-footer">
-    <p>&copy; 2025 BLOOMÉ. Shop with soul ✨</p>
-    <div class="social-links">
-      <a href="#">Instagram</a>
-      <a href="#">Facebook</a>
-      <a href="#">X</a>
-    </div>
-  </footer>
-
-  <script src="scripts/animations.js"></script>
-  <script src="scripts/ui.js"></script>
-  <script src="scripts/main.js"></script>
+    <!-- Scripts -->
+    <script src="../Js/Shop.js"></script>
 </body>
-
 </html>
