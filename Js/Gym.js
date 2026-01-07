@@ -494,7 +494,7 @@ function initializeThemeToggle() {
     const body = document.body;
     
     // Check for saved theme preference
-    const savedTheme = localStorage.getItem('bloome-theme');
+    const savedTheme = sessionStorage.getItem('bloome-theme');
     if (savedTheme === 'dark') {
         body.classList.add('dark-theme');
         themeToggle.textContent = '☀️';
@@ -506,10 +506,10 @@ function initializeThemeToggle() {
             
             if (body.classList.contains('dark-theme')) {
                 themeToggle.textContent = '☀️';
-                localStorage.setItem('bloome-theme', 'dark');
+                sessionStorage.setItem('bloome-theme', 'dark');
             } else {
                 themeToggle.textContent = '🌙';
-                localStorage.setItem('bloome-theme', 'light');
+                sessionStorage.setItem('bloome-theme', 'light');
             }
         });
     }
@@ -889,10 +889,10 @@ document.addEventListener('DOMContentLoaded', function() {
     enhanceAccessibility();
     
     // Show welcome message for first-time visitors
-    if (!localStorage.getItem('bloome-visited')) {
+    if (!sessionStorage.getItem('bloome-visited')) {
         setTimeout(() => {
             showSpecialMessage("🌸 Welcome to BLOOMÉ! Find your flow and bloom into your best self! 🌸");
-            localStorage.setItem('bloome-visited', 'true');
+            sessionStorage.setItem('bloome-visited', 'true');
         }, 2000);
     }
 });
