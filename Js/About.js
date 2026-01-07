@@ -24,7 +24,8 @@ function initializeThemeToggle() {
     const body = document.body;
     
     // Check for saved theme preference or default to 'light'
-    const savedTheme = localStorage.getItem('theme') || 'light';
+    // Check for saved theme preference or default to 'light'
+    const savedTheme = sessionStorage.getItem('theme') || 'light';
     body.classList.toggle('dark-theme', savedTheme === 'dark');
     themeToggle.textContent = savedTheme === 'dark' ? '☀️' : '🌙';
     
@@ -32,7 +33,7 @@ function initializeThemeToggle() {
         const isDark = body.classList.toggle('dark-theme');
         const newTheme = isDark ? 'dark' : 'light';
         
-        localStorage.setItem('theme', newTheme);
+        sessionStorage.setItem('theme', newTheme);
         themeToggle.textContent = isDark ? '☀️' : '🌙';
         
         // Add a fun rotation effect
@@ -264,8 +265,13 @@ function initializeMeditationPlayer() {
     ];
     
     function playTone(frequency, duration = 2000) {
-        if (!audioContext) {
-            audioContext = new (window.AudioContext || window.webkitAudioContext)();
+       try {
+            if (!audioContext) {
+                audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            }
+        } catch (error) {
+            console.log('Audio context not supported');
+            return;
         }
         
         const oscillator = audioContext.createOscillator();
@@ -550,13 +556,7 @@ window.addEventListener('error', (e) => {
     // Graceful degradation - ensure core functionality still works
 });
 
-// Service Worker registration for offline functionality (optional)
-if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-        // You can register a service worker here if needed
-        // navigator.serviceWorker.register('/sw.js');
-    });
-}
+
 
 // ===== CLEANUP =====
 window.addEventListener('beforeunload', () => {
