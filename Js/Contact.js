@@ -56,7 +56,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const body = document.body;
         
         // Check for saved theme or default to light
-        const savedTheme = localStorage.getItem('bloomeTheme') || 'light';
+        const savedTheme = sessionStorage.getItem('bloomeTheme') || 'light';
         if (savedTheme === 'dark') {
             body.classList.add('dark-theme');
             themeToggle.textContent = '☀️';
@@ -66,7 +66,7 @@ document.addEventListener('DOMContentLoaded', function() {
             body.classList.toggle('dark-theme');
             const isDark = body.classList.contains('dark-theme');
             themeToggle.textContent = isDark ? '☀️' : '🌙';
-            localStorage.setItem('bloomeTheme', isDark ? 'dark' : 'light');
+            sessionStorage.setItem('bloomeTheme', isDark ? 'dark' : 'light');
             
             // Theme change animation
             themeToggle.style.transform = 'rotate(360deg)';
@@ -552,8 +552,12 @@ document.addEventListener('DOMContentLoaded', function() {
     function playSuccessSound() {
         // Create a simple success sound using Web Audio API
         if (typeof AudioContext !== 'undefined' || typeof webkitAudioContext !== 'undefined') {
-            const AudioContextClass = AudioContext || webkitAudioContext;
+            try {
+                const AudioContextClass = AudioContext || webkitAudioContext;
             const audioContext = new AudioContextClass();
+            } catch (error) {
+                console.log('Audio context not supported');
+            }
             
             // Create a simple success melody
             const frequencies = [523.25, 659.25, 783.99]; // C5, E5, G5
@@ -580,8 +584,12 @@ document.addEventListener('DOMContentLoaded', function() {
     
     function playHeartSound() {
         // Create a gentle heart sound
-        if (typeof AudioContext !== 'undefined' || typeof webkitAudioContext !== 'undefined') {
-            const AudioContextClass = AudioContext || webkitAudioContext;
+       if (typeof AudioContext !== 'undefined' || typeof webkitAudioContext !== 'undefined') {
+            try {
+                const AudioContextClass = AudioContext || webkitAudioContext;
+                } catch (error) {
+                console.log('Audio context not supported');
+            }
             const audioContext = new AudioContextClass();
             
             const oscillator = audioContext.createOscillator();
@@ -727,7 +735,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const formData = {};
     formInputs.forEach(input => {
         // Load saved data
-        const saved = localStorage.getItem(`bloome_form_${input.name}`);
+        const saved = sessionStorage.getItem(`bloome_form_${input.name}`);
         if (saved && input.type !== 'password') {
             input.value = saved;
         }
@@ -735,9 +743,9 @@ document.addEventListener('DOMContentLoaded', function() {
         // Save data on change
         input.addEventListener('input', () => {
             if (input.value.trim()) {
-                localStorage.setItem(`bloome_form_${input.name}`, input.value);
+                sessionStorage.setItem(`bloome_form_${input.name}`, input.value);
             } else {
-                localStorage.removeItem(`bloome_form_${input.name}`);
+                sessionStorage.removeItem(`bloome_form_${input.name}`);
             }
         });
     });
@@ -764,17 +772,6 @@ document.addEventListener('DOMContentLoaded', function() {
             console.log(`🌸 BLOOMÉ loaded in ${loadTime}ms - Optimized for wellness!`);
         }
     });
-    
-    // Service worker registration for offline functionality
-    if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('/sw.js')
-            .then(registration => {
-                console.log('🌸 BLOOMÉ Service Worker registered:', registration);
-            })
-            .catch(error => {
-                console.log('🌸 BLOOMÉ Service Worker registration failed:', error);
-            });
-    }
     
     // Memory cleanup on page unload
     window.addEventListener('beforeunload', () => {
