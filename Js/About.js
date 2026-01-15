@@ -19,24 +19,30 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 // ===== THEME TOGGLE =====
+// ===== UNIFIED THEME TOGGLE =====
 function initializeThemeToggle() {
     const themeToggle = document.getElementById('theme-toggle');
     const body = document.body;
     
-    // Check for saved theme preference or default to 'light'
-    // Check for saved theme preference or default to 'light'
-    const savedTheme = sessionStorage.getItem('theme') || 'light';
-    body.classList.toggle('dark-theme', savedTheme === 'dark');
-    themeToggle.textContent = savedTheme === 'dark' ? '☀️' : '🌙';
+    if (!themeToggle) return;
+    
+    // UNIFIED storage key
+    const THEME_KEY = 'bloome-theme';
+    const savedTheme = sessionStorage.getItem(THEME_KEY) || 'light';
+    
+    // Apply saved theme
+    if (savedTheme === 'dark') {
+        body.classList.add('dark-theme');
+        themeToggle.textContent = '☀️';
+    }
     
     themeToggle.addEventListener('click', () => {
-        const isDark = body.classList.toggle('dark-theme');
-        const newTheme = isDark ? 'dark' : 'light';
-        
-        sessionStorage.setItem('theme', newTheme);
+        body.classList.toggle('dark-theme');
+        const isDark = body.classList.contains('dark-theme');
         themeToggle.textContent = isDark ? '☀️' : '🌙';
+        sessionStorage.setItem(THEME_KEY, isDark ? 'dark' : 'light');
         
-        // Add a fun rotation effect
+        // Rotation animation
         themeToggle.style.transform = 'rotate(360deg)';
         setTimeout(() => {
             themeToggle.style.transform = 'rotate(0deg)';
