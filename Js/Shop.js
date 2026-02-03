@@ -58,7 +58,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (!themeToggle) return;
         
         // Check for saved theme preference
-        const savedTheme = sessionStorage.getItem('bloomeTheme') || 'light';
+        const savedTheme = sessionStorage.getItem('bloome-theme') || 'light';
         if (savedTheme === 'dark') {
             body.classList.add('dark-theme');
             themeToggle.textContent = '☀️';
@@ -68,7 +68,7 @@ document.addEventListener('DOMContentLoaded', function() {
             body.classList.toggle('dark-theme');
             const isDark = body.classList.contains('dark-theme');
             themeToggle.textContent = isDark ? '☀️' : '🌙';
-            sessionStorage.setItem('bloomeTheme', isDark ? 'dark' : 'light');
+            sessionStorage.setItem('bloome-theme', isDark ? 'dark' : 'light');
             
             // Smooth rotation animation
             themeToggle.style.transform = 'rotate(360deg)';

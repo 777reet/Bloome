@@ -56,7 +56,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const body = document.body;
         
         // Check for saved theme or default to light
-        const savedTheme = sessionStorage.getItem('bloomeTheme') || 'light';
+        const savedTheme = sessionStorage.getItem('bloome-theme') || 'light';
         if (savedTheme === 'dark') {
             body.classList.add('dark-theme');
             themeToggle.textContent = '☀️';
@@ -66,7 +66,7 @@ document.addEventListener('DOMContentLoaded', function() {
             body.classList.toggle('dark-theme');
             const isDark = body.classList.contains('dark-theme');
             themeToggle.textContent = isDark ? '☀️' : '🌙';
-            sessionStorage.setItem('bloomeTheme', isDark ? 'dark' : 'light');
+            sessionStorage.setItem('bloome-theme', isDark ? 'dark' : 'light');
             
             // Theme change animation
             themeToggle.style.transform = 'rotate(360deg)';
@@ -83,24 +83,22 @@ document.addEventListener('DOMContentLoaded', function() {
         const successMessage = document.getElementById('success-message');
         const sendAnotherBtn = document.getElementById('send-another');
         
+        // Cache selectors to avoid repeated queries
+        const btnText = submitBtn.querySelector('.btn-text');
+        const btnIcon = submitBtn.querySelector('.btn-icon');
+        const formInputs = form.querySelectorAll('input, textarea, select');
+        
         form.addEventListener('submit', handleFormSubmit);
         sendAnotherBtn.addEventListener('click', resetForm);
-        
-        // Add ripple effect to submit button
         submitBtn.addEventListener('click', createRippleEffect);
         
         function handleFormSubmit(e) {
             e.preventDefault();
             
-            // Show loading state
-            const btnText = submitBtn.querySelector('.btn-text');
-            const btnIcon = submitBtn.querySelector('.btn-icon');
-            
             btnText.textContent = 'Sending...';
             btnIcon.textContent = '✨';
             submitBtn.disabled = true;
             
-            // Simulate form submission
             setTimeout(() => {
                 showSuccessMessage();
                 resetFormState();
@@ -115,17 +113,12 @@ document.addEventListener('DOMContentLoaded', function() {
         function resetForm() {
             successMessage.classList.remove('show');
             form.reset();
-            // Clear form validation states
-            const inputs = form.querySelectorAll('input, textarea, select');
-            inputs.forEach(input => {
+            formInputs.forEach(input => {
                 input.style.borderColor = '';
             });
         }
         
         function resetFormState() {
-            const btnText = submitBtn.querySelector('.btn-text');
-            const btnIcon = submitBtn.querySelector('.btn-icon');
-            
             btnText.textContent = 'Send Message';
             btnIcon.textContent = '🚀';
             submitBtn.disabled = false;
@@ -400,6 +393,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // ===== SCROLL EFFECTS =====
     function setupScrollEffects() {
         const scrollIndicator = document.getElementById('scroll-indicator');
+        const floatingShapes = document.querySelectorAll('.floating-shape');
         
         if (scrollIndicator) {
             scrollIndicator.addEventListener('click', () => {
@@ -407,16 +401,21 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         }
         
-        // Parallax effect for floating elements
+        // Throttled parallax effect - only update every 16ms (60fps)
+        let ticking = false;
         window.addEventListener('scroll', () => {
-            const scrolled = window.pageYOffset;
-            const floatingShapes = document.querySelectorAll('.floating-shape');
-            
-            floatingShapes.forEach((shape, index) => {
-                const speed = 0.2 + (index * 0.1);
-                shape.style.transform = `translateY(${scrolled * speed}px)`;
-            });
-        });
+            if (!ticking) {
+                window.requestAnimationFrame(() => {
+                    const scrolled = window.pageYOffset;
+                    floatingShapes.forEach((shape, index) => {
+                        const speed = 0.2 + (index * 0.1);
+                        shape.style.transform = `translateY(${scrolled * speed}px)`;
+                    });
+                    ticking = false;
+                });
+                ticking = true;
+            }
+        }, { passive: true });
         
         // Intersection Observer for fade-in animations
         const observerOptions = {
@@ -446,24 +445,23 @@ document.addEventListener('DOMContentLoaded', function() {
     // ===== BUSINESS HOURS =====
     function setupBusinessHours() {
         const currentStatus = document.getElementById('current-status');
-        const statusDot = currentStatus?.querySelector('.status-dot');
-        const statusText = currentStatus?.querySelector('.status-text');
-        
         if (!currentStatus) return;
+        
+        const statusDot = currentStatus.querySelector('.status-dot');
+        const statusText = currentStatus.querySelector('.status-text');
         
         function updateBusinessStatus() {
             const now = new Date();
-            const day = now.getDay(); // 0 = Sunday, 6 = Saturday
+            const day = now.getDay();
             const hour = now.getHours();
             
             let isOpen = false;
             
-            // Business hours logic
-            if (day >= 1 && day <= 5) { // Monday - Friday
+            if (day >= 1 && day <= 5) {
                 isOpen = hour >= 8 && hour < 20;
-            } else if (day === 6) { // Saturday
+            } else if (day === 6) {
                 isOpen = hour >= 9 && hour < 18;
-            } else if (day === 0) { // Sunday
+            } else if (day === 0) {
                 isOpen = hour >= 10 && hour < 16;
             }
             
@@ -481,7 +479,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         
         updateBusinessStatus();
-        // Update every minute
         setInterval(updateBusinessStatus, 60000);
     }
 
@@ -554,17 +551,14 @@ document.addEventListener('DOMContentLoaded', function() {
         if (typeof AudioContext !== 'undefined' || typeof webkitAudioContext !== 'undefined') {
             try {
                 const AudioContextClass = AudioContext || webkitAudioContext;
-            const audioContext = new AudioContextClass();
-            } catch (error) {
-                console.log('Audio context not supported');
-            }
-            
-            // Create a simple success melody
-            const frequencies = [523.25, 659.25, 783.99]; // C5, E5, G5
-            
-            frequencies.forEach((freq, index) => {
-                const oscillator = audioContext.createOscillator();
-                const gainNode = audioContext.createGain();
+                const audioContext = new AudioContextClass();
+                
+                // Create a simple success melody
+                const frequencies = [523.25, 659.25, 783.99]; // C5, E5, G5
+                
+                frequencies.forEach((freq, index) => {
+                    const oscillator = audioContext.createOscillator();
+                    const gainNode = audioContext.createGain();
                 
                 oscillator.connect(gainNode);
                 gainNode.connect(audioContext.destination);
@@ -576,37 +570,40 @@ document.addEventListener('DOMContentLoaded', function() {
                 gainNode.gain.linearRampToValueAtTime(0.1, audioContext.currentTime + 0.01);
                 gainNode.gain.linearRampToValueAtTime(0, audioContext.currentTime + 0.3);
                 
-                oscillator.start(audioContext.currentTime + index * 0.1);
-                oscillator.stop(audioContext.currentTime + index * 0.1 + 0.3);
-            });
+                    oscillator.start(audioContext.currentTime + index * 0.1);
+                    oscillator.stop(audioContext.currentTime + index * 0.1 + 0.3);
+                });
+            } catch (error) {
+                console.log('Audio context not supported');
+            }
         }
     }
     
     function playHeartSound() {
         // Create a gentle heart sound
-       if (typeof AudioContext !== 'undefined' || typeof webkitAudioContext !== 'undefined') {
+        if (typeof AudioContext !== 'undefined' || typeof webkitAudioContext !== 'undefined') {
             try {
                 const AudioContextClass = AudioContext || webkitAudioContext;
-                } catch (error) {
+                const audioContext = new AudioContextClass();
+                
+                const oscillator = audioContext.createOscillator();
+                const gainNode = audioContext.createGain();
+                
+                oscillator.connect(gainNode);
+                gainNode.connect(audioContext.destination);
+                
+                oscillator.frequency.setValueAtTime(440, audioContext.currentTime); // A4
+                oscillator.type = 'sine';
+                
+                gainNode.gain.setValueAtTime(0, audioContext.currentTime);
+                gainNode.gain.linearRampToValueAtTime(0.05, audioContext.currentTime + 0.01);
+                gainNode.gain.linearRampToValueAtTime(0, audioContext.currentTime + 0.2);
+                
+                oscillator.start(audioContext.currentTime);
+                oscillator.stop(audioContext.currentTime + 0.2);
+            } catch (error) {
                 console.log('Audio context not supported');
             }
-            const audioContext = new AudioContextClass();
-            
-            const oscillator = audioContext.createOscillator();
-            const gainNode = audioContext.createGain();
-            
-            oscillator.connect(gainNode);
-            gainNode.connect(audioContext.destination);
-            
-            oscillator.frequency.setValueAtTime(440, audioContext.currentTime); // A4
-            oscillator.type = 'sine';
-            
-            gainNode.gain.setValueAtTime(0, audioContext.currentTime);
-            gainNode.gain.linearRampToValueAtTime(0.05, audioContext.currentTime + 0.01);
-            gainNode.gain.linearRampToValueAtTime(0, audioContext.currentTime + 0.2);
-            
-            oscillator.start(audioContext.currentTime);
-            oscillator.stop(audioContext.currentTime + 0.2);
         }
     }
     
@@ -817,11 +814,6 @@ const wellnessQuotes = [
     "Be gentle with yourself 🌿"
 ];
 
-function showRandomQuote() {
-    const randomQuote = wellnessQuotes[Math.floor(Math.random() * wellnessQuotes.length)];
-    // You could display this in a subtle notification or update UI element
-    console.log(`🌸 Daily Wellness Reminder: ${randomQuote}`);
-}
-
-// Show a wellness quote every 5 minutes
-setInterval(showRandomQuote, 300000);
+// Note: Quote rotation is available if needed
+// Uncomment below to enable: showRandomQuote()
+// setInterval(showRandomQuote, 300000);
